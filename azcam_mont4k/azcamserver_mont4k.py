@@ -212,7 +212,7 @@ def config(systemname: str = "menu"):
     # ****************************************************************
     azcam.api.parfile_read(parfile)
 
-    # overwrite come pars
+    # overwrite some pars
     if CSS:
         instrument.enabled = 0
         telescope.enabled = 0
