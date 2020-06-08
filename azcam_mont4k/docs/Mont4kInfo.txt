@@ -1,0 +1,22 @@
+Information
+
+
+•Characterized 07Aug13 @ ITL 
+•ARC Gen3 controller upgrade August, 2013
+•Gain - 3.1 e-/DN (left) and 3.1 e-/DN (right) 
+•Noise - 5.0 e- (left) and 5.0 e- (right) 
+•Full Well
+?81,000 e- unbinned
+?91,000 e- binned 2x2
+?>200,000 e- binned 3x3 (65k DN limited)
+•Dark Current - 16.6 e-/pixel/hour 
+•Operating CCD temperature: -125C 
+•QE Curve
+•ARC Gen3 camera controller 
+•Detector serial number - sn3088 
+•Photon Transfer Curves
+?Binned 2x2
+?Binned 3x3
+?Linearity 3x3
+•Device type: Fairchild CCD486
+•Pixels:4096x4096 15x15 microns

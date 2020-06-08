@@ -1,0 +1,15 @@
+Installation for mont4k
+
+install git
+create \azcam
+copy \azcam\support
+
+net use \\xxx	(itl\xxx username)
+
+git clone \\xxx\data\code\azcam
+git clone \\xxx\data\code\itldetchar
+git clone \\xxx\data\code\mont4k
+
+pip install -r requirements.txt
+
+
