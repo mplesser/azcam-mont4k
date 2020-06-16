@@ -9,4 +9,3 @@ azcam
 focus
 observe
 obstool
-testers
