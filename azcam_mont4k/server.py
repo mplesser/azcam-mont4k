@@ -17,7 +17,7 @@ from azcam.exposures.exposure_arc import ExposureArc
 from azcam.cmdserver import CommandServer
 from azcam.webserver.web_server import WebServer
 
-from azcam_obstool.obstool import MainWindow
+from obstool.obstool import MainWindow
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import telescope
@@ -200,7 +200,7 @@ system = SystemHeader("mont4k", template)
 # ****************************************************************
 # focus script - server-side
 # ****************************************************************
-from azcam_focus import FocusServer
+from focus import FocusServer
 
 focus = FocusServer()
 azcam.db.cli_cmds["focus"] = focus
