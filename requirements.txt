@@ -6,8 +6,7 @@ flask
 PySide2
 genpars
 azcam
-azcam-focus
-azcam-observe
-azcam-obstool
-azcam-testers
--e azcam-mont4k
+focus
+observe
+obstool
+testers
