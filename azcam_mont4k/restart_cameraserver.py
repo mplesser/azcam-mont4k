@@ -1,8 +1,7 @@
 """
 restart_cameraserver
 
-This is just a fix for PC hang issue...
-09Oct19 MPL
+This is just a fix for PC hang issue.
 """
 
 import os

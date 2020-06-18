@@ -26,11 +26,8 @@ class Mont4kInstrument(Instrument):
         super().__init__()
 
         self.Name = "Mont4k"  # instrument name
-        self.Port = 9875  # port for Jeff's instrument server
-        # self.Host='128.196.209.231'        # kuiper.as.arizona.edu - host for Jeff's instrument server
-        self.Host = (
-            "10.30.1.1"  # kuiper.as.arizona.edu - host for Jeff's instrument server
-        )
+        self.Port = 9875
+        self.Host = "10.30.1.1"
         self.ActiveComps = [""]
         self.enabled = 1
         self.ActiveFilter = "unknown"
@@ -319,9 +316,7 @@ class InstrumentServerInterface(object):
         """
 
         try:
-            self.Socket.send(
-                str.encode(Command + "\r\n")
-            )  # send command with terminator
+            self.Socket.send(str.encode(Command + "\r\n"))  # send command with terminator
         except:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]
