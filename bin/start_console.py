@@ -1,11 +1,14 @@
 """
-Script to start an azcamconsole application.
+Script to start an azcam application.
 
 Usage: Execute this file from File Explorer
 """
 
 import os
 import sys
+
+rootfolder = os.path.abspath(os.path.relpath("../azcam_mont4k"))
+rootfolder = os.path.normpath(rootfolder).replace("\\", "/")
 
 # select which python to use (virtual environments)
 python = "ipython.exe"
@@ -15,14 +18,12 @@ interactive = "-i"  # "-i" or ""
 if len(sys.argv) > 1:
     arguments = sys.argv[1:]
 else:
-    arguments = [""]
-    # arguments = ["-system VIRUS"]
     # arguments = ["-system VIRUS -data \data"]
-
-configscript = "azcam_mont4k.console"
+    arguments = [""]
 
 profile = "azcamconsole"
-import_command = f"import {configscript}; from azcam.cli import *"
+
+import_command = f"sys.path.append('{rootfolder}');" f"import console; from azcam.cli import *"
 
 # execute
 cl = (

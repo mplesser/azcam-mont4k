@@ -16,11 +16,11 @@ from azcam.tempcons.tempcon_arc import TempConArc
 from azcam.exposures.exposure_arc import ExposureArc
 from azcam.cmdserver import CommandServer
 from azcam.webserver.web_server import WebServer
-
+import azcam.monitorinterface
 from obstool.obstool import MainWindow
 
-from azcam_mont4k.instrument_mont4k import Mont4kInstrument
-from azcam_mont4k.telescope_big61 import telescope
+from instrument_mont4k import Mont4kInstrument
+from telescope_big61 import telescope
 
 # ****************************************************************
 # parse command line arguments
@@ -35,7 +35,7 @@ except ValueError:
 # configuration menu
 # ****************************************************************
 menu_options = {
-    "mont4k standard mode": "normal",
+    "mont4k standard mode": "mont4k",
     "mont4k for RTS2": "RTS2",
     "mont4k for CSS": "CSS",
 }
@@ -83,7 +83,7 @@ azcam.db.qtapp = app
 # ****************************************************************
 CSS = 0
 RTS2 = 0
-if "normal" in option:
+if "mont4k" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
     )
@@ -216,12 +216,12 @@ display = Ds9Display()
 # system-specific
 # ****************************************************************
 if CSS:
-    from azcam_mont4k.css import CSS
+    from css import CSS
 
     css = CSS()
     azcam.db.cli_cmds["css"] = css
 elif RTS2:
-    from azcam_mont4k.rts2 import RTS2
+    from rts2 import RTS2
 
     rts2 = RTS2()
     rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
@@ -248,9 +248,16 @@ webserver = WebServer()
 webserver.start()
 
 # ****************************************************************
+# azcammonitor
+# ****************************************************************
+monitor = azcam.monitorinterface.MonitorInterface()
+monitor.ProcPath = "c:/data/code/azcam-mont4k/bin/restart_server_normal.bat"
+monitor.Register()
+
+# ****************************************************************
 # apps
 # ****************************************************************
-import azcam_mont4k.restart_cameraserver
+import restart_cameraserver
 obstool = MainWindow()
 obstool.start()
 
