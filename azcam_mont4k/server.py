@@ -83,11 +83,13 @@ azcam.db.qtapp = app
 # ****************************************************************
 CSS = 0
 RTS2 = 0
+NORMAL = 0
 if "mont4k" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
     )
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
+    NORMAL = 1
 elif "RTS2" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
@@ -142,20 +144,18 @@ controller.header.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
 # exposure
 # ****************************************************************
 exposure = ExposureArc()
+remote_imageserver_port = 6543
 if CSS:
     exposure.image.server_type = "azcam"
     remote_imageserver_host = "10.30.7.82"
-    remote_imageserver_port = 6543
     imagefolder = "/home/css"
 elif RTS2:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
-    remote_imageserver_port = 6543
     imagefolder = "/home/bigobs"
 else:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
-    remote_imageserver_port = 6543
     imagefolder = "/home/bigobs"
 exposure.filetype = azcam.db.filetypes["MEF"]
 exposure.image.filetype = azcam.db.filetypes["MEF"]
@@ -220,12 +220,16 @@ if CSS:
 
     css = CSS()
     azcam.db.cli_cmds["css"] = css
+    process_path = "c:/data/code/azcam-mont4k/bin/start_server_css.bat"
 elif RTS2:
     from rts2 import RTS2
 
     rts2 = RTS2()
     rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
-
+    process_path = "c:/data/code/azcam-mont4k/bin/start_server_rts2.bat"
+else:
+    process_path = "c:/data/code/azcam-mont4k/bin/start_server_mont4k.bat"
+    
 # ****************************************************************
 # read par file
 # ****************************************************************
@@ -251,15 +255,16 @@ webserver.start()
 # azcammonitor
 # ****************************************************************
 monitor = azcam.monitorinterface.MonitorInterface()
-monitor.ProcPath = "c:/data/code/azcam-mont4k/bin/restart_server_normal.bat"
-monitor.Register()
+#monitor.proc_path = process_path
+monitor.register()
 
 # ****************************************************************
 # apps
 # ****************************************************************
 import restart_cameraserver
 obstool = MainWindow()
-obstool.start()
+if NORMAL:
+    obstool.start()
 
 # ****************************************************************
 # define names to imported into namespace
