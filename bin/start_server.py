@@ -25,7 +25,7 @@ else:
 
 profile = "azcamserver"
 
-import_command = f"sys.path.append('{rootfolder}');" f"import server; from azcam.cli import *"
+import_command = f"sys.path.append('{rootfolder}');" f"import azcam_mont4k_server; from azcam.cli import *"
 
 # execute
 cl = (

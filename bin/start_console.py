@@ -23,7 +23,7 @@ else:
 
 profile = "azcamconsole"
 
-import_command = f"sys.path.append('{rootfolder}');" f"import console; from azcam.cli import *"
+import_command = f"sys.path.append('{rootfolder}');" f"import azcam_mont4k_console; from azcam.cli import *"
 
 # execute
 cl = (
