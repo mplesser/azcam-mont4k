@@ -4,10 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "..\\focus"
+			"path": "..\\azcam"
 		},
 		{
-			"path": "..\\azcam"
+			"path": "..\\azcammonitor"
 		}
 	],
 	"settings": {}
