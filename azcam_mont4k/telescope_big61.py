@@ -99,7 +99,7 @@ class Big61TCSng(Telescope):
             return
 
         if not self.enabled:
-            azcam.AzCamWarning("telescope is not enabled")
+            azcam.AzcamWarning("telescope is not enabled")
             return
 
         # set host and port for telescopes

@@ -135,7 +135,7 @@ class Focus(object):
         # exposure time - zero not allowed for focus
         ExpTime = azcam.api.get_exposuretime()
         if ExpTime < 0.001:
-            azcam.AzCamWarning("do not focus with zero exposure time")
+            azcam.AzcamWarning("do not focus with zero exposure time")
             return
         azcam.api.set_exposuretime(self.exposure_time)
 

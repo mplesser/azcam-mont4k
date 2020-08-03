@@ -64,15 +64,6 @@ azcam.utils.start_logging(azcam.db.logfile, "123")
 azcam.log(f"Configuring for {option}")
 
 # ****************************************************************
-# define and start command server
-# ****************************************************************
-cmdserver = CommandServer()
-cmdserver.port = 2402
-azcam.log(f"Starting command server listening on port {cmdserver.port}")
-# cmdserver.welcome_message = "Welcome - azcam-itl server"
-cmdserver.start()
-
-# ****************************************************************
 # create Qt app
 # ****************************************************************
 app = QApplication(sys.argv)
@@ -90,21 +81,33 @@ if "mont4k" in option:
     )
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
+    cmdport = 2402
 elif "RTS2" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
     )
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
+    cmdport = 2412
 elif "CSS" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
     )
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
+    cmdport = 2422
 else:
     azcam.AzcamError("invalid menu item")
 azcam.db.parfile = parfile
+
+# ****************************************************************
+# define and start command server
+# ****************************************************************
+cmdserver = CommandServer()
+cmdserver.port = cmdport
+azcam.log(f"Starting command server listening on port {cmdserver.port}")
+# cmdserver.welcome_message = "Welcome - azcam-itl server"
+cmdserver.start()
 
 # ****************************************************************
 # controller
@@ -256,9 +259,12 @@ webserver.start()
 # ****************************************************************
 import restart_cameraserver
 obstool = MainWindow()
-if NORMAL:
-    obstool.start()
-
+if 0:
+    if NORMAL:
+        obstool.start()
+if 1:
+    import start_azcamtool
+    
 # ****************************************************************
 # define names to imported into namespace
 # ****************************************************************
