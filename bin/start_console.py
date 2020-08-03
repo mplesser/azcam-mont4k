@@ -6,9 +6,11 @@ Usage: Execute this file from File Explorer
 
 import os
 import sys
+from pathlib import Path, PurePosixPath
 
-rootfolder = os.path.abspath(os.path.relpath("../azcam_mont4k"))
-rootfolder = os.path.normpath(rootfolder).replace("\\", "/")
+rootfolder = Path(__file__).resolve().parent.parent
+rootfolder = rootfolder / "azcam_mont4k"
+rootfolder = str(PurePosixPath(rootfolder))
 
 # select which python to use (virtual environments)
 python = "ipython.exe"

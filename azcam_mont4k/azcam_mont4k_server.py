@@ -220,15 +220,15 @@ if CSS:
 
     css = CSS()
     azcam.db.cli_cmds["css"] = css
-    process_path = "c:/data/code/azcam-mont4k/bin/start_server_css.bat"
+    process_path = "c:/azcam/azcam-mont4k/bin/start_server_css.bat"
 elif RTS2:
     from rts2 import RTS2
 
     rts2 = RTS2()
     rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
-    process_path = "c:/data/code/azcam-mont4k/bin/start_server_rts2.bat"
+    process_path = "c:/azcam/azcam-mont4k/bin/start_server_rts2.bat"
 else:
-    process_path = "c:/data/code/azcam-mont4k/bin/start_server_mont4k.bat"
+    process_path = "c:/azcam/azcam-mont4k/bin/start_server_mont4k.bat"
     
 # ****************************************************************
 # read par file
@@ -250,13 +250,6 @@ if CSS:
 # ****************************************************************
 webserver = WebServer()
 webserver.start()
-
-# ****************************************************************
-# azcammonitor
-# ****************************************************************
-monitor = azcam.monitorinterface.MonitorInterface()
-#monitor.proc_path = process_path
-monitor.register()
 
 # ****************************************************************
 # apps

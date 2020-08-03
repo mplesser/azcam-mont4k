@@ -4,8 +4,9 @@ matplotlib
 scipy
 flask
 PySide2
-genpars
-azcam
-focus
-observe
-obstool
+
+-e ../genpars
+-e ../azcam
+-e ../focus
+-e ../observe
+-e ../obstool

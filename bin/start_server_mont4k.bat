@@ -1,1 +1,1 @@
-python C:\data\code\azcam-mont4k\bin\start_server.py -system mont4k
+python C:\azcam\azcam-mont4k\bin\start_server.py -system mont4k
