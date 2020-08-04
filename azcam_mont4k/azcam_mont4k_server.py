@@ -152,14 +152,17 @@ if CSS:
     exposure.image.server_type = "azcam"
     remote_imageserver_host = "10.30.7.82"
     imagefolder = "/home/css"
+    azcam.db.servermode = "mont4k-css"
 elif RTS2:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
     imagefolder = "/home/bigobs"
+    azcam.db.servermode = "mont4k-rts2"
 else:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
     imagefolder = "/home/bigobs"
+    azcam.db.servermode = "mont4k-normal"
 exposure.filetype = azcam.db.filetypes["MEF"]
 exposure.image.filetype = azcam.db.filetypes["MEF"]
 exposure.display_image = 0
