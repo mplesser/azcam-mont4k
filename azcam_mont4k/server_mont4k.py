@@ -5,10 +5,10 @@ import sys
 import datetime
 
 from PySide2.QtWidgets import QApplication
-from genpars import GenPars
 
 import azcam
 import azcam.server
+from azcam.genpars import GenPars
 from azcam.displays.ds9display import Ds9Display
 from azcam.systemheader import SystemHeader
 from azcam.controllers.controller_arc import ControllerArc
@@ -17,7 +17,6 @@ from azcam.exposures.exposure_arc import ExposureArc
 from azcam.cmdserver import CommandServer
 from azcam.webserver.web_server import WebServer
 import azcam.monitorinterface
-from obstool.obstool import MainWindow
 
 from instrument_mont4k import Mont4kInstrument
 from telescope_big61 import telescope
@@ -50,9 +49,7 @@ azcam.db.systemfolder = os.path.dirname(__file__)
 azcam.db.systemfolder = azcam.utils.fix_path(azcam.db.systemfolder)
 azcam.db.datafolder = os.path.join("/data", azcam.db.systemname)
 azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
-azcam.db.parfile = os.path.join(
-    azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini"
-)
+azcam.db.parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
 
 # ****************************************************************
 # enable logging
@@ -76,23 +73,17 @@ CSS = 0
 RTS2 = 0
 NORMAL = 0
 if "mont4k" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
 elif "RTS2" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
 elif "CSS" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
@@ -119,12 +110,8 @@ controller.video_boards = ["gen2"]
 controller.utility_board = "gen3"
 controller.set_boards()
 controller.camserver.set_server("localhost", 2405)
-controller.utility_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsputility/util3.lod"
-)
-controller.pci_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod"
-)
+controller.utility_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsputility/util3.lod")
+controller.pci_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod")
 controller.timing_file = os.path.join(
     azcam.db.systemfolder, "dspcode", "dsptiming", "mont4k_config0.lod"
 )
@@ -235,14 +222,14 @@ elif RTS2:
     process_path = "c:/azcam/azcam-mont4k/bin/start_server_rts2.bat"
 else:
     process_path = "c:/azcam/azcam-mont4k/bin/start_server_mont4k.bat"
-    
+
 # ****************************************************************
 # read par file
 # ****************************************************************
-azcam.db.genpars = GenPars()
-pardict = azcam.db.genpars.parfile_read(parfile)["azcamserver"]
+genpars = GenPars()
+pardict = genpars.parfile_read(parfile)["azcamserver"]
 azcam.utils.update_pars(0, pardict)
-wd = azcam.db.genpars.get_par(pardict, "wd", "default")
+wd = genpars.get_par(pardict, "wd", "default")
 azcam.utils.curdir(wd)
 
 # overwrite come pars
@@ -258,20 +245,20 @@ webserver = WebServer()
 webserver.start()
 
 # ****************************************************************
-# apps
+# camera server
 # ****************************************************************
 import restart_cameraserver
-obstool = MainWindow()
-if 0:
-    if NORMAL:
-        obstool.start()
+
+# ****************************************************************
+# GUIs
+# ****************************************************************
 if 1:
     import start_azcamtool
-    
+
 # ****************************************************************
 # define names to imported into namespace
 # ****************************************************************
-azcam.db.cli_cmds.update({"azcam": azcam, "db": azcam.db, "obstool": obstool})
+azcam.db.cli_cmds.update({"azcam": azcam, "db": azcam.db})
 
 # ****************************************************************
 # finish
