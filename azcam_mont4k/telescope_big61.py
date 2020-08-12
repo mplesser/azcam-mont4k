@@ -263,7 +263,7 @@ class Big61TCSng(Telescope):
 
         # azcam.utils.prompt('Move to focus %s and press Enter...' % FocusPosition)
 
-        self.Telescope.comFOCUS(int(FocusPosition))
+        self.Telescope.comFOCUS(int(float(FocusPosition)))
 
         return
 
