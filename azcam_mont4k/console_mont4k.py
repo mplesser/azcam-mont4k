@@ -9,13 +9,13 @@ from PySide2.QtWidgets import QApplication
 
 import azcam
 import azcam.console
+from azcam.genpars import GenPars
 from azcam.console import api
 import azcam.shortcuts_console
 from azcam.displays.ds9display import Ds9Display
 from azcam import db
 from focus import Focus
 from observe.observe import Observe
-from genpars import GenPars
 
 azcam.log("Loading azcam-mont4k environment")
 
@@ -76,10 +76,10 @@ else:
 # ****************************************************************
 # read par file
 # ****************************************************************
-azcam.db.genpars = GenPars()
-pardict = azcam.db.genpars.parfile_read(azcam.db.parfile)["azcamconsole"]
+genpars = GenPars()
+pardict = genpars.parfile_read(azcam.db.parfile)["azcamconsole"]
 azcam.utils.update_pars(0, pardict)
-wd = azcam.db.genpars.get_par(pardict, "wd", "default")
+wd = genpars.get_par(pardict, "wd", "default")
 azcam.utils.curdir(wd)
 
 # ****************************************************************
