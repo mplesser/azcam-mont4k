@@ -9,6 +9,7 @@ from PySide2.QtWidgets import QApplication
 import azcam
 import azcam.server
 from azcam.genpars import GenPars
+import azcam.shortcuts_server
 from azcam.displays.ds9display import Ds9Display
 from azcam.systemheader import SystemHeader
 from azcam.controllers.controller_arc import ControllerArc
