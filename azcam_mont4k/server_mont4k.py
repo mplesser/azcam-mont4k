@@ -194,7 +194,7 @@ system = SystemHeader("mont4k", template)
 # ****************************************************************
 # focus script - server-side
 # ****************************************************************
-from focus import FocusServer
+from focus.focus_server import FocusServer
 
 focus = FocusServer()
 azcam.db.cli_cmds["focus"] = focus
