@@ -188,7 +188,7 @@ class Big61TCSng(Telescope):
         """
 
         if not self.enabled:
-            azcam.utils.log("telescope not enabled")
+            azcam.AzcamWarning("telescope not enabled")
             return
 
         data = self.Telescope.azcam_all()
@@ -226,7 +226,7 @@ class Big61TCSng(Telescope):
         """
 
         if not self.enabled:
-            azcam.utils.log("telescope not enabled")
+            azcam.AzcamWarning("telescope not enabled")
             return
 
         header = []
@@ -295,7 +295,7 @@ class Big61TCSng(Telescope):
         """
 
         if not self.enabled:
-            azcam.utils.log("telescope not enabled")
+            azcam.AzcamWarning("telescope not enabled")
             return
 
         reply = self.Telescope.comSTEPRA(RA)
@@ -312,7 +312,7 @@ class Big61TCSng(Telescope):
         """
 
         if not self.enabled:
-            azcam.utils.log("telescope not enabled")
+            azcam.AzcamWarning("telescope not enabled")
             return
 
         # loop for up to ~20 seconds
