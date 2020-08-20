@@ -20,18 +20,18 @@ class RTS2(object):
         """
 
         azcam.db.cmd_objects["rts2"] = self
-        azcam.db.rts2 = self
+        azcam.db.cli_cmds["rts2"] = self
 
         return
 
     def initialize(self):
         """
-        Initialize AzCam system. 
+        Initialize AzCam system.
         """
 
-        reply = azcam.api.reset()
+        azcam.db.exposure.reset()
 
-        return reply
+        return
 
     def setexp(self, et: float = 1.0) -> str:
         """
@@ -47,13 +47,13 @@ class RTS2(object):
     ) -> typing.Optional[str]:
         """
         Make a complete exposure.
-        
+
         :param exposure_time: the exposure time in seconds
         :param image_type: type of exposure ('zero', 'object', 'flat', ...)
         :param image_title: image title, usually surrounded by double quotes.
         """
 
-        reply = azcam.api.expose1(exposure_time, image_type, image_title)
+        reply = azcam.db.exposure.expose1(exposure_time, image_type, image_title)
 
         return reply
 
@@ -85,7 +85,7 @@ class RTS2(object):
         Set binning.
         """
 
-        reply = azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
+        azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
 
         return
 
@@ -105,7 +105,7 @@ class RTS2(object):
         Flush sensor "cycles" times.
         """
 
-        self.exposure.flush(cycles)
+        azcam.db.exposure.flush(cycles)
 
         return
 
@@ -115,7 +115,7 @@ class RTS2(object):
         """
         try:
             azcam.db.exposure.abort()
-        except AttributeError as err:
+        except AttributeError:
             return
 
         return
@@ -126,14 +126,14 @@ class RTS2(object):
         """
         try:
             azcam.db.controller.readout_abort()
-        except AttributeError as err:
+        except AttributeError:
             return
 
         return
 
     def pixels_remaining(self):
         """
-        Pixels remaing till readout finished 
+        Pixels remaing till readout finished.
         """
         reply = azcam.db.controller.get_pixels_remaining()
 

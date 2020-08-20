@@ -18,16 +18,16 @@ class CSS(object):
         """
 
         azcam.db.cmd_objects["css"] = self
-        azcam.db.css = self
+        azcam.db.cli_cmds["css"] = self
 
         return
 
     def initialize(self):
         """
-        Initialize AzCam system. 
+        Initialize AzCam system.
         """
 
-        reply = azcam.api.reset()
+        reply = azcam.db.exposure.reset()
 
         return reply
 
@@ -40,14 +40,14 @@ class CSS(object):
         title is the image title.
         """
 
-        azcam.api.set_par("imagetest", 0)
-        azcam.api.set_par("imageautoname", 0)
-        azcam.api.set_par("imageincludesequencenumber", 0)
-        azcam.api.set_par("imageautoincrementsequencenumber", 0)
+        azcam.utils.set_par("imagetest", 0)
+        azcam.utils.set_par("imageautoname", 0)
+        azcam.utils.set_par("imageincludesequencenumber", 0)
+        azcam.utils.set_par("imageautoincrementsequencenumber", 0)
 
         azcam.db.exposure.set_filename(filename)
 
-        azcam.api.expose1(exposuretime, imagetype, title)
+        azcam.db.exposure.expose1(exposuretime, imagetype, title)
 
         return "OK"
 
@@ -65,7 +65,7 @@ class CSS(object):
     def camstat(self):
         """
         Return camera status.
-        Reply is "STATUS camtemp dewtemp expflag" 
+        Reply is "STATUS camtemp dewtemp expflag".
         """
 
         reply = azcam.db.tempcon.get_temperatures()
@@ -73,7 +73,7 @@ class CSS(object):
         camtemp = "%.3f" % reply[0]
         dewtemp = "%.3f" % reply[1]
 
-        ef = self.exposure.exposure_flag
+        ef = azcam.db.exposure.exposure_flag
 
         return ["OK", camtemp, dewtemp, ef]
 
@@ -82,7 +82,7 @@ class CSS(object):
         Set binning.
         """
 
-        reply = azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
+        azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
 
         return
 
@@ -102,6 +102,6 @@ class CSS(object):
         Flush sensor "cycles" times.
         """
 
-        reply = azcam.db.exposure.flush(cycles)
+        azcam.db.exposure.flush(cycles)
 
         return
