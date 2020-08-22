@@ -15,7 +15,7 @@ from azcam.console import api
 import azcam.shortcuts_console
 from azcam.displays.ds9display import Ds9Display
 from azcam import db
-from focus import Focus
+from focus.focus import Focus
 from observe.observe import Observe
 
 azcam.log("Loading azcam-mont4k environment")
