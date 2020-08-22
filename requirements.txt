@@ -4,9 +4,7 @@ matplotlib
 scipy
 flask
 PySide2
-psutil
 
--e azcam
--e focus
--e observe
--e obstool
+azcam
+focus
+observe
