@@ -110,7 +110,7 @@ class Big61TCSng(Telescope):
         elif self.name == "test":
             pass
         else:
-            azcam.utils.log("ERROR - only BIG61 currently supported")
+            azcam.log("ERROR - only BIG61 currently supported")
 
         # create Telescope object
         if self.name != "test":
@@ -173,7 +173,7 @@ class Big61TCSng(Telescope):
                 self.header.comments[key] = self.comments[key]
                 self.header.typestrings[key] = self.typestrings[key]
             except Exception as message:
-                azcam.utils.log(key, "TCS keyword error", message)
+                azcam.log(key, "TCS keyword error", message)
                 self.header.keywords[key] = key
                 self.header.comments[key] = "unknown"
                 self.header.typestrings[key] = "str"
@@ -242,7 +242,7 @@ class Big61TCSng(Telescope):
                 list1 = [key, data[self.keywords[key]], self.comments[key], t]
                 header.append(list1)
             except Exception as message:
-                azcam.utils.log("ERROR", key, message)
+                azcam.log("ERROR", key, message)
                 continue
 
             # store value in Header
