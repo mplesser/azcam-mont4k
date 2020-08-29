@@ -4,8 +4,6 @@ import os
 import sys
 import datetime
 
-from PySide2.QtWidgets import QApplication
-
 import azcam
 import azcam.server
 import azcam.logging
@@ -61,12 +59,6 @@ azcam.db.logfile = os.path.join(azcam.db.datafolder, "logs", f"server_{tt}.log")
 azcam.logging.start_logging(azcam.db.logfile, "123")
 
 azcam.log(f"Configuring for {option}")
-
-# ****************************************************************
-# create Qt app
-# ****************************************************************
-app = QApplication(sys.argv)
-azcam.db.qtapp = app
 
 # ****************************************************************
 # configure system options

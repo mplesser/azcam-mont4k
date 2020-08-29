@@ -5,8 +5,6 @@ import sys
 import datetime
 import threading
 
-from PySide2.QtWidgets import QApplication
-
 import azcam
 import azcam.console
 import azcam.logging
@@ -52,12 +50,6 @@ focus = Focus()
 azcam.db.cli_cmds["focus"] = focus
 focus.focus_component = "telescope"
 focus.focus_type = "absolute"
-
-# ****************************************************************
-# create Qt app
-# ****************************************************************
-app = QApplication(sys.argv)
-azcam.db.qtapp = app
 
 # ****************************************************************
 # observe script
