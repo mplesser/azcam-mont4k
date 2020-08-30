@@ -359,8 +359,8 @@ class TelescopeNG:
 
     def request(self, reqstr, timeout=1.0, retry=True):
 
-        """This is the main TCSng request method all 
-		server requests must come through here."""
+        """This is the main TCSng request method all
+        server requests must come through here."""
 
         HOST = socket.gethostbyname(self.hostname)
         PORT = 5750
@@ -378,7 +378,7 @@ class TelescopeNG:
 
     def command(self, reqstr, timeout=0.5):
         """This is the main TCSng command method. All TCS
-        	server commands must come through here."""
+        server commands must come through here."""
 
         HOST = socket.gethostbyname(self.hostname)
         PORT = 5750
@@ -392,7 +392,7 @@ class TelescopeNG:
 
     def reqALL(self):
         """returns dictions of "ALL" request i.e.
-        	[MOT] [RA] [DEC] [HA] [LST] [ALT] [AZ] [SECZ] [Epoch]"""
+        [MOT] [RA] [DEC] [HA] [LST] [ALT] [AZ] [SECZ] [Epoch]"""
         allDict = {}
         names = ["motion", "ra", "dec", "ha", "lst", "alt", "az", "secz", "epoch"]
         rawStr = self.request("ALL")
@@ -404,7 +404,7 @@ class TelescopeNG:
 
     def reqXALL(self):
         """returns dictions of "XALL" request i.e.
-        	[FOC] [DOME] [IIS] [PA] [UTD] [JD]"""
+        [FOC] [DOME] [IIS] [PA] [UTD] [JD]"""
         xallDict = {}
         names = ["focus", "dome", "iis", "pa", "utd", "jd"]
         rawStr = self.request("XALL")

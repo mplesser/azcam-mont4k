@@ -36,8 +36,8 @@ class telescope:
 
     def request(self, reqstr, timeout=0.1, retry=True):
 
-        """This is the main TCSng request method all 
-		server requests must come through here."""
+        """This is the main TCSng request method all
+        server requests must come through here."""
 
         with self.comLock:
             HOST = socket.gethostbyname(self.hostname)
@@ -57,7 +57,7 @@ class telescope:
 
     def command(self, reqstr, timeout=0.5):
         """This is the main TCSng command method. All TCS
-        	server commands must come through here."""
+        server commands must come through here."""
 
         HOST = socket.gethostbyname(self.hostname)
         PORT = 5750
