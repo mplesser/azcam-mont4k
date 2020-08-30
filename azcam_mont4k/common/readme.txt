@@ -1,1 +1,0 @@
-The code here is common all all systems but not distributed with the azcam package.
