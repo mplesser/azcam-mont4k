@@ -180,7 +180,7 @@ class Big61TCSng(Telescope):
 
         return
 
-    def read_keyword(self, Keyword):
+    def get_keyword(self, Keyword):
         """
         Reads an telescope keyword value.
         Keyword is the name of the keyword to be read.
@@ -317,7 +317,7 @@ class Big61TCSng(Telescope):
 
         # loop for up to ~20 seconds
         for i in range(200):
-            reply = self.read_keyword("MOTION")
+            reply = self.get_keyword("MOTION")
             try:
                 motion = int(reply[0])
             except:
