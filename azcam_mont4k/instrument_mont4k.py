@@ -17,19 +17,13 @@ class Mont4kInstrument(Instrument):
     The InstrumentServer is J. Fookson's Ruby server.
     """
 
-    def __init__(self):
-        """
-        Create Mont4kInstrument instrument object
-        """
+    def __init__(self, obj_id="instrument", obj_name="Mont4k"):
 
-        # create Header object and set defaults
-        super().__init__()
+        super().__init__(obj_id, obj_name)
 
-        self.Name = "Mont4k"  # instrument name
         self.Port = 9875
         self.Host = "10.30.1.1"
         self.ActiveComps = [""]
-        self.enabled = 1
         self.ActiveFilter = "unknown"
         self.busy = 0
 
@@ -250,15 +244,14 @@ class InstrumentServerInterface(object):
     Communicates with an instrument server using an ethernet socket.
     """
 
-    Host = ""  # instrument server host
-    Port = 0  # instrument server port
-    OK = "OK"
-    ERROR = "ERROR"
-
     def __init__(self, Host, Port):
 
         self.Host = Host
         self.Port = Port
+        self.Opened = 0
+
+        self.OK = "OK"
+        self.ERROR = "ERROR"
 
     def command(self, Command):
         """
@@ -293,7 +286,7 @@ class InstrumentServerInterface(object):
             self.Socket.connect((self.Host, self.Port))
             self.Opened = 1
             return [self.OK]
-        except:
+        except Exception:
             self.Opened = 0
             return [self.ERROR, "instrument not opened"]
 
@@ -304,7 +297,7 @@ class InstrumentServerInterface(object):
 
         try:
             self.Socket.close()
-        except:
+        except Exception:
             pass
         self.Opened = 0
         return [self.OK]
@@ -317,7 +310,7 @@ class InstrumentServerInterface(object):
 
         try:
             self.Socket.send(str.encode(Command + "\r\n"))  # send command with terminator
-        except:
+        except Exception:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]
 
@@ -329,7 +322,7 @@ class InstrumentServerInterface(object):
 
         try:
             self.Socket.send(str.encode(Command))  # send command with terminator
-        except:
+        except Exception:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]
 
@@ -344,14 +337,14 @@ class InstrumentServerInterface(object):
         while chunk != "\n":  # server returns CR LF, which is '\n' translated
             try:
                 chunk = self.Socket.recv(1).decode()
-            except:
+            except Exception:
                 msg = chunk = ""
                 self.status = -1
                 return "ERROR in instrument communication"  # get out
             msg = msg + chunk
         Reply = msg[:-2]  # remove CR/LF
         self.status = 0
-        if Reply == None:
+        if Reply is None:
             Reply = ""
         return Reply
 
