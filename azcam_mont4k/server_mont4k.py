@@ -6,11 +6,10 @@ import datetime
 
 import azcam
 import azcam.server
-import azcam.logging
 from azcam.genpars import GenPars
 import azcam.shortcuts_server
 from azcam.displays.ds9display import Ds9Display
-from azcam.systemheader import SystemHeader
+from azcam.header import Header
 from azcam.controllers.controller_arc import ControllerArc
 from azcam.tempcons.tempcon_arc import TempConArc
 from azcam.exposures.exposure_arc import ExposureArc
@@ -71,16 +70,19 @@ if "mont4k" in option:
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
+    default_object = None
 elif "RTS2" in option:
     template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
+    default_object = "rts2"
 elif "CSS" in option:
     template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
+    default_object = None
 else:
     azcam.AzcamError("invalid menu item")
 azcam.db.parfile = parfile
@@ -93,6 +95,7 @@ cmdserver.port = cmdport
 azcam.log(f"Starting command server listening on port {cmdserver.port}")
 # cmdserver.welcome_message = "Welcome - azcam-itl server"
 cmdserver.start()
+cmdserver.default_object = default_object
 
 # ****************************************************************
 # controller
@@ -183,7 +186,8 @@ telescope = telescope
 # ****************************************************************
 # system header template
 # ****************************************************************
-system = SystemHeader("mont4k", template)
+sysheader = Header("mont4k", template)
+sysheader.set_header("system", 0)
 
 # ****************************************************************
 # focus script - server-side

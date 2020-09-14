@@ -120,6 +120,10 @@ class Mont4kInstrument(Instrument):
         Type is one of 'str', 'int', 'float', or 'complex'.
         """
 
+        if not self.enabled:
+            azcam.AzcamWarning("instrument not enabled")
+            return
+
         header = []
         reply = self.header.get_all_keywords()
 
