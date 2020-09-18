@@ -140,7 +140,8 @@ if CSS:
 elif RTS2:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
-    imagefolder = "/home/bigobs"
+    # imagefolder = "/home/bigobs"
+    imagefolder = "/home/rts2obs"
     azcam.db.servermode = "mont4k-rts2"
 else:
     exposure.image.server_type = "dataserver"
