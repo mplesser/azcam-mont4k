@@ -1,4 +1,6 @@
 # local
+*.code-workspace
+.mycommitmsg.txt
 git_*
 
 # Byte-compiled / optimized / DLL files
