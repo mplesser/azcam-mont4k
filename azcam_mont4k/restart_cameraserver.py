@@ -5,7 +5,6 @@ This is just a fix for PC hang issue.
 """
 
 import os
-import subprocess
 
 import azcam
 

@@ -29,7 +29,7 @@ class RTS2(object):
         Initialize AzCam system.
         """
 
-        azcam.db.exposure.reset()
+        azcam.api.exposure.reset()
 
         return
 
@@ -38,7 +38,7 @@ class RTS2(object):
         Set camera exposure time in seconds.
         """
 
-        azcam.db.exposure.set_exposuretime(et)
+        azcam.api.exposure.set_exposuretime(et)
 
         return "OK"
 
@@ -53,7 +53,7 @@ class RTS2(object):
         :param image_title: image title, usually surrounded by double quotes.
         """
 
-        reply = azcam.db.exposure.expose1(exposure_time, image_type, image_title)
+        reply = azcam.api.exposure.expose1(exposure_time, image_type, image_title)
 
         return reply
 
@@ -62,7 +62,7 @@ class RTS2(object):
         Return remaining exposure time (in seconds).
         """
 
-        reply = azcam.db.exposure.get_exposuretime_remaining()
+        reply = azcam.api.exposure.get_exposuretime_remaining()
 
         etr = "%.3f" % reply[1]
 
@@ -73,7 +73,7 @@ class RTS2(object):
         Return camera status(temperatures).
         """
 
-        reply = azcam.db.tempcon.get_temperatures()
+        reply = azcam.api.tempcon.get_temperatures()
 
         camtemp = "%.3f" % reply[0]
         dewtemp = "%.3f" % reply[1]
@@ -85,7 +85,7 @@ class RTS2(object):
         Set binning.
         """
 
-        azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
+        azcam.api.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
 
         return
 
@@ -105,7 +105,7 @@ class RTS2(object):
         Flush sensor "cycles" times.
         """
 
-        azcam.db.exposure.flush(cycles)
+        azcam.api.exposure.flush(cycles)
 
         return
 
@@ -114,7 +114,7 @@ class RTS2(object):
         abort exposure
         """
         try:
-            azcam.db.exposure.abort()
+            azcam.api.exposure.abort()
         except AttributeError:
             return
 
@@ -125,7 +125,7 @@ class RTS2(object):
         abort readout
         """
         try:
-            azcam.db.controller.readout_abort()
+            azcam.api.controller.readout_abort()
         except AttributeError:
             return
 
@@ -135,6 +135,6 @@ class RTS2(object):
         """
         Pixels remaing till readout finished.
         """
-        reply = azcam.db.controller.get_pixels_remaining()
+        reply = azcam.api.controller.get_pixels_remaining()
 
         return reply
