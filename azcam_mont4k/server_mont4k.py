@@ -4,13 +4,11 @@ import os
 import sys
 import datetime
 
-import azcam
-import azcam.server
-import azcam.logging
+from azcam.server import azcam
 from azcam.genpars import GenPars
 import azcam.shortcuts_server
 from azcam.displays.ds9display import Ds9Display
-from azcam.systemheader import SystemHeader
+from azcam.header import Header
 from azcam.controllers.controller_arc import ControllerArc
 from azcam.tempcons.tempcon_arc import TempConArc
 from azcam.exposures.exposure_arc import ExposureArc
@@ -18,8 +16,8 @@ from azcam.cmdserver import CommandServer
 from azcam.webserver.web_server import WebServer
 import azcam.monitorinterface
 
-from instrument_mont4k import Mont4kInstrument
-from telescope_big61 import telescope
+from azcam_mont4k.instrument_mont4k import Mont4kInstrument
+from azcam_mont4k.telescope_big61 import telescope
 
 # ****************************************************************
 # parse command line arguments
@@ -75,6 +73,7 @@ if "mont4k" in option:
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
+    default_object = None
 elif "RTS2" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
@@ -82,6 +81,7 @@ elif "RTS2" in option:
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
+    default_object = "rts2"
 elif "CSS" in option:
     template = os.path.join(
         azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
@@ -89,6 +89,7 @@ elif "CSS" in option:
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
+    default_object = None
 else:
     azcam.AzcamError("invalid menu item")
 azcam.db.parfile = parfile
@@ -98,9 +99,10 @@ azcam.db.parfile = parfile
 # ****************************************************************
 cmdserver = CommandServer()
 cmdserver.port = cmdport
-azcam.log(f"Starting command server listening on port {cmdserver.port}")
+azcam.log(f"Starting cmdserver - listening on port {cmdserver.port}")
 # cmdserver.welcome_message = "Welcome - azcam-itl server"
 cmdserver.start()
+cmdserver.default_object = default_object
 
 # ****************************************************************
 # controller
@@ -149,7 +151,8 @@ if CSS:
 elif RTS2:
     exposure.image.server_type = "dataserver"
     remote_imageserver_host = "10.30.1.1"
-    imagefolder = "/home/bigobs"
+    # imagefolder = "/home/bigobs"
+    imagefolder = "/home/rts2obs"
     azcam.db.servermode = "mont4k-rts2"
 else:
     exposure.image.server_type = "dataserver"
@@ -185,6 +188,7 @@ exposure.image.focalplane.wcs.scale2 = [sc, sc]
 # instrument
 # ****************************************************************
 instrument = Mont4kInstrument()
+instrument.enabled = 1
 
 # ****************************************************************
 # telescope
@@ -194,7 +198,8 @@ telescope = telescope
 # ****************************************************************
 # system header template
 # ****************************************************************
-system = SystemHeader("mont4k", template)
+sysheader = Header("mont4k", template)
+sysheader.set_header("system", 0)
 
 # ****************************************************************
 # focus script - server-side
@@ -253,18 +258,13 @@ webserver.start()
 # ****************************************************************
 # camera server
 # ****************************************************************
-import restart_cameraserver
+import azcam_mont4k.restart_cameraserver
 
 # ****************************************************************
 # GUIs
 # ****************************************************************
 if 1:
-    import start_azcamtool
-
-# ****************************************************************
-# define names to imported into namespace
-# ****************************************************************
-azcam.db.cli_cmds.update({"azcam": azcam, "db": azcam.db})
+    import azcam_mont4k.start_azcamtool
 
 # ****************************************************************
 # finish

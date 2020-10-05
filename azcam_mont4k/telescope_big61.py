@@ -16,20 +16,13 @@ class Big61TCSng(Telescope):
     The interface to the Steward Observatory TCSng telescope server.
     """
 
-    def __init__(self):
-        """
-        Creates the telescope object.
-        """
+    def __init__(self, obj_id="telescope", obj_name="Big61 telescope"):
 
-        super().__init__()
-
-        self.name = "big61"
+        super().__init__(obj_id, obj_name)
 
         self.Host = ""
         self.TELID = ""
         self.Port = -1
-
-        self.enabled = 1
 
         # the value Keywords is the string used by TCS
         self.keywords = {
@@ -86,8 +79,6 @@ class Big61TCSng(Telescope):
         # add keywords
         reply = self.define_keywords()
 
-        self.initialized = 0
-
         return
 
     def initialize(self):
@@ -99,7 +90,7 @@ class Big61TCSng(Telescope):
             return
 
         if not self.enabled:
-            azcam.AzcamWarning("telescope is not enabled")
+            azcam.AzcamWarning(f"{self.name} is not enabled")
             return
 
         # set host and port for telescopes
@@ -117,7 +108,6 @@ class Big61TCSng(Telescope):
             self.Telescope = TelescopeNG(self.Host, self.TELID, self.Port)
 
         self.initialized = 1
-        self.enabled = 1
 
         return
 
