@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This repository contains the *azcam-bok* package.  It has the environement, configuration, and system files for the University of Arizona Kuiper telescope Mont4k facility camera system.
+This repository contains the *azcam-mont4k* package.  It has the environement, configuration, and system files for the University of Arizona Kuiper telescope Mont4k facility camera system.
 
 ## Installation Example
 
