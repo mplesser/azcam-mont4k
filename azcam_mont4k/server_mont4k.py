@@ -47,9 +47,7 @@ azcam.db.systemfolder = os.path.dirname(__file__)
 azcam.db.systemfolder = azcam.utils.fix_path(azcam.db.systemfolder)
 azcam.db.datafolder = os.path.join("/data", azcam.db.systemname)
 azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
-azcam.db.parfile = os.path.join(
-    azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini"
-)
+azcam.db.parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
 
 # ****************************************************************
 # enable logging
@@ -67,25 +65,19 @@ CSS = 0
 RTS2 = 0
 NORMAL = 0
 if "mont4k" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
     default_object = None
 elif "RTS2" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
     default_object = "rts2"
 elif "CSS" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
@@ -114,12 +106,8 @@ controller.video_boards = ["gen2"]
 controller.utility_board = "gen3"
 controller.set_boards()
 controller.camserver.set_server("localhost", 2405)
-controller.utility_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsputility/util3.lod"
-)
-controller.pci_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod"
-)
+controller.utility_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsputility/util3.lod")
+controller.pci_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod")
 controller.timing_file = os.path.join(
     azcam.db.systemfolder, "dspcode", "dsptiming", "mont4k_config0.lod"
 )
@@ -220,13 +208,13 @@ display = Ds9Display()
 # system-specific
 # ****************************************************************
 if CSS:
-    from css import CSS
+    from azcam_mont4k.css import CSS
 
     css = CSS()
     azcam.db.cli_cmds["css"] = css
     process_path = "c:/azcam/azcam-mont4k/bin/start_server_css.bat"
 elif RTS2:
-    from rts2 import RTS2
+    from azcam_mont4k.rts2 import RTS2
 
     rts2 = RTS2()
     rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
