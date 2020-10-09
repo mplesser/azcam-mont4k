@@ -17,7 +17,7 @@ class CSS(object):
         Creates css object.
         """
 
-        azcam.db.cmd_objects["css"] = self
+        azcam.api.css = self
         azcam.db.cli_cmds["css"] = self
 
         return

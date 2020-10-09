@@ -9,8 +9,8 @@ from azcam.console import azcam
 from azcam.genpars import GenPars
 import azcam.shortcuts_console
 from azcam.displays.ds9display import Ds9Display
-from focus.focus import Focus
-from observe.observe import Observe
+from azcam_focus.focus import Focus
+from azcam-observe.observe import Observe
 
 azcam.log("Loading azcam-mont4k environment")
 
@@ -52,7 +52,7 @@ observe = Observe()
 azcam.db.cli_cmds["observe"] = observe
 
 # ****************************************************************
-# try to connect to azcam
+# try to connect to azcamserver
 # ****************************************************************
 connected = azcam.api.connect()
 if connected:

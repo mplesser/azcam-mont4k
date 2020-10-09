@@ -192,7 +192,7 @@ sysheader.set_header("system", 0)
 # ****************************************************************
 # focus script - server-side
 # ****************************************************************
-from focus.focus_server import FocusServer
+from azcam_focus.focus_server import FocusServer
 
 focus = FocusServer()
 azcam.db.cli_cmds["focus"] = focus
@@ -240,7 +240,14 @@ if CSS:
 # ****************************************************************
 # web server
 # ****************************************************************
+from azcam.webserver.web_server import WebServer
+
 webserver = WebServer()
+
+import azcam_webobs
+import azcam_exptool
+import azcam_status
+
 webserver.start()
 
 # ****************************************************************
