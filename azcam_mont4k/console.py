@@ -7,10 +7,10 @@ import threading
 
 from azcam.console import azcam
 from azcam.genpars import GenPars
-import azcam.shortcuts_console
+import azcam.shortcuts
 from azcam.displays.ds9display import Ds9Display
 from azcam_focus.focus import Focus
-from azcam-observe.observe import Observe
+from azcam_observe.observe import Observe
 
 azcam.log("Loading azcam-mont4k environment")
 

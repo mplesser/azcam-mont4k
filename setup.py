@@ -6,10 +6,9 @@ requirements = [
     "matplotlib",
     "scipy",
     "flask",
-    "PySide2",
     "azcam",
-    "focus",
-    "observe",
+    "azcam-focus",
+    "azcam-observe",
 ]
 
 with open("README.md", "r") as fh:
