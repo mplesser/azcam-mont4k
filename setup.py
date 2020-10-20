@@ -1,11 +1,7 @@
 from setuptools import setup, find_packages
 
 requirements = [
-    "numpy",
     "ipython",
-    "matplotlib",
-    "scipy",
-    "flask",
     "azcam",
     "azcam-focus",
     "azcam-observe",
