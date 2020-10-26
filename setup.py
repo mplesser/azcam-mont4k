@@ -1,12 +1,5 @@
 from setuptools import setup, find_packages
 
-requirements = [
-    "ipython",
-    "azcam",
-    "azcam-focus",
-    "azcam-observe",
-]
-
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
@@ -20,5 +13,5 @@ setup(
     keywords="python parameters",
     packages=find_packages(),
     zip_safe=False,
-    install_requires=[requirements],
+    install_requires=[],
 )

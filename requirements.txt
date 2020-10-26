@@ -14,3 +14,4 @@ mysql-connector-python
 -e /azcam/azcam-archon
 -e /azcam/azcam-mag
 -e /azcam/azcam-qhy
+-e .
