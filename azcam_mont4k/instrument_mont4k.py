@@ -8,7 +8,7 @@ import threading
 import time
 
 import azcam
-from azcam.instruments.instrument import Instrument
+from azcam.instrument import Instrument
 
 
 class Mont4kInstrument(Instrument):

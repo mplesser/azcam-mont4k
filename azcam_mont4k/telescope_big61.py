@@ -7,7 +7,7 @@ import time
 
 import azcam
 from azcam.header import Header
-from azcam.telescopes.telescope import Telescope
+from azcam.telescope import Telescope
 
 
 class Big61TCSng(Telescope):
