@@ -1,12 +1,11 @@
 # Contains the interface class to the big61 Telescope Control System for Next Generation TCS.
 
+import os
 import socket
 import sys
-import os
 import time
 
 import azcam
-
 from azcam.header import Header
 from azcam.telescopes.telescope import Telescope
 

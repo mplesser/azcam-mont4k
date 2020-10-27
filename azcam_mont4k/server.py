@@ -1,23 +1,23 @@
 # azcamserver config file for mont4k
 
+import datetime
 import os
 import sys
-import datetime
 
-from azcam.server import azcam
-from azcam.genpars import GenPars
-import azcam.shortcuts
-from azcam_ds9.ds9display import Ds9Display
-from azcam.header import Header
 from azcam_arc.controller_arc import ControllerArc
-from azcam_arc.tempcon_arc import TempConArc
 from azcam_arc.exposure_arc import ExposureArc
-from azcam.cmdserver import CommandServer
-from azcam.webserver.web_server import WebServer
-import azcam.monitorinterface
-
+from azcam_arc.tempcon_arc import TempConArc
+from azcam_ds9.ds9display import Ds9Display
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import telescope
+
+import azcam.monitorinterface
+import azcam.shortcuts
+from azcam.cmdserver import CommandServer
+from azcam.genpars import GenPars
+from azcam.header import Header
+from azcam.server import azcam
+from azcam.webserver.web_server import WebServer
 
 # ****************************************************************
 # parse command line arguments
@@ -256,9 +256,9 @@ from azcam.webserver.web_server import WebServer
 
 webserver = WebServer()
 
-import azcam_webobs
 import azcam_exptool
 import azcam_status
+import azcam_webobs
 
 webserver.start()
 

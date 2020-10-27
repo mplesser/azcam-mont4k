@@ -2,10 +2,10 @@
 Contains Mont4k instrument class for the UAO 61" Mont4k instrument.
 """
 
-import sys
-import time
-import threading
 import socket
+import sys
+import threading
+import time
 
 import azcam
 from azcam.instruments.instrument import Instrument
