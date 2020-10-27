@@ -33,6 +33,15 @@ class RTS2(object):
 
         return
 
+    def reset(self):
+        """
+        Reset exposure.
+        """
+
+        azcam.api.exposure.reset()
+
+        return
+
     def setexp(self, et: float = 1.0) -> str:
         """
         Set camera exposure time in seconds.
