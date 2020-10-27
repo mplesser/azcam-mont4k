@@ -19,7 +19,7 @@ class RTS2(object):
         Creates rts2 object.
         """
 
-        azcam.api.rts2 = self
+        azcam.db.cmd_objects["rts2"] = self
         azcam.db.cli_cmds["rts2"] = self
 
         return
@@ -29,7 +29,7 @@ class RTS2(object):
         Initialize AzCam system.
         """
 
-        azcam.api.exposure.reset()
+        azcam.db.exposure.reset()
 
         return
 
@@ -38,7 +38,33 @@ class RTS2(object):
         Reset exposure.
         """
 
-        azcam.api.exposure.reset()
+        azcam.db.exposure.reset()
+
+        return
+
+    def set_par(self, parameter, value):
+        """
+        Set parameter.
+        """
+
+        azcam.db.exposure.set_par(parameter, value)
+
+        return
+
+    def set_roi(
+        self,
+        first_col=-1,
+        last_col=-1,
+        first_row=-1,
+        last_row=-1,
+        col_bin=-1,
+        row_bin=-1,
+        roi_num=0,
+    ):
+
+        azcam.db.exposure.set_roi(
+            first_col, last_col, first_row, last_row, col_bin, row_bin
+        )
 
         return
 
@@ -47,7 +73,7 @@ class RTS2(object):
         Set camera exposure time in seconds.
         """
 
-        azcam.api.exposure.set_exposuretime(et)
+        azcam.db.exposure.set_exposuretime(et)
 
         return "OK"
 
@@ -62,7 +88,7 @@ class RTS2(object):
         :param image_title: image title, usually surrounded by double quotes.
         """
 
-        reply = azcam.api.exposure.expose1(exposure_time, image_type, image_title)
+        reply = azcam.db.exposure.expose1(exposure_time, image_type, image_title)
 
         return reply
 
@@ -71,7 +97,7 @@ class RTS2(object):
         Return remaining exposure time (in seconds).
         """
 
-        reply = azcam.api.exposure.get_exposuretime_remaining()
+        reply = azcam.db.exposure.get_exposuretime_remaining()
 
         etr = "%.3f" % reply[1]
 
@@ -82,7 +108,7 @@ class RTS2(object):
         Return camera status(temperatures).
         """
 
-        reply = azcam.api.tempcon.get_temperatures()
+        reply = azcam.db.tempcon.get_temperatures()
 
         camtemp = "%.3f" % reply[0]
         dewtemp = "%.3f" % reply[1]
@@ -94,7 +120,7 @@ class RTS2(object):
         Set binning.
         """
 
-        azcam.api.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
+        azcam.db.exposure.set_roi(-1, -1, -1, -1, colbin, rowbin)
 
         return
 
@@ -114,7 +140,7 @@ class RTS2(object):
         Flush sensor "cycles" times.
         """
 
-        azcam.api.exposure.flush(cycles)
+        azcam.db.exposure.flush(cycles)
 
         return
 
@@ -123,7 +149,7 @@ class RTS2(object):
         abort exposure
         """
         try:
-            azcam.api.exposure.abort()
+            azcam.db.exposure.abort()
         except AttributeError:
             return
 
@@ -134,7 +160,7 @@ class RTS2(object):
         abort readout
         """
         try:
-            azcam.api.controller.readout_abort()
+            azcam.db.controller.readout_abort()
         except AttributeError:
             return
 
@@ -144,6 +170,6 @@ class RTS2(object):
         """
         Pixels remaing till readout finished.
         """
-        reply = azcam.api.controller.get_pixels_remaining()
+        reply = azcam.db.controller.get_pixels_remaining()
 
         return reply
