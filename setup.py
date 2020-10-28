@@ -3,6 +3,14 @@ from setuptools import find_packages, setup
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+requirements = [
+    "ipython",
+    "azcam",
+    "azcam-ds9",
+    "azcam-focus",
+    "azcam-observe",
+]
+
 setup(
     name="azcam-mont4k",
     version="20.3",
@@ -13,5 +21,5 @@ setup(
     keywords="python parameters",
     packages=find_packages(),
     zip_safe=False,
-    install_requires=[],
+    install_requires=requirements,
 )
