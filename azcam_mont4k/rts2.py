@@ -19,7 +19,7 @@ class RTS2(object):
         Creates rts2 object.
         """
 
-        azcam.db.cmd_objects["rts2"] = self
+        azcam.api.rts2 = self
         azcam.db.cli_cmds["rts2"] = self
 
         return
