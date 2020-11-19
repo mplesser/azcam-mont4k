@@ -169,7 +169,7 @@ class Big61TCSng(Telescope):
 
         return
 
-    def get_keyword(self, Keyword):
+    def get_keyword(self, keyword):
         """
         Reads an telescope keyword value.
         Keyword is the name of the keyword to be read.
@@ -182,29 +182,23 @@ class Big61TCSng(Telescope):
 
         data = self.Telescope.azcam_all()
 
-        keyword = Keyword.lower()
+        keyword = keyword.lower()
         reply = data[keyword]
 
         # parse RA and DEC specially
-        if Keyword == "RA":
+        if keyword == "RA":
             reply = "%s:%s:%s" % (reply[0:2], reply[2:4], reply[4:])
-        elif Keyword == "DEC":
+        elif keyword == "DEC":
             reply = "%s:%s:%s" % (reply[0:3], reply[3:5], reply[5:])
         else:
             pass
 
         # store value in Header
-        self.header.set_keyword(Keyword, reply)
+        self.header.set_keyword(keyword, reply)
 
-        # convert type
-        if self.typestrings[Keyword] == int:
-            reply = int(reply)
-        elif self.typestrings[Keyword] == float:
-            reply = float(reply)
+        reply, t = self.header.convert_type(reply, self.header.typestrings[keyword])
 
-        t = self.header.get_type_string(self.typestrings[Keyword])
-
-        return [reply, self.comments[Keyword], t]
+        return [reply, self.comments[keyword], t]
 
     def read_header(self):
         """
