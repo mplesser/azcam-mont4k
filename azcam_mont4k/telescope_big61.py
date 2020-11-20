@@ -6,7 +6,6 @@ import sys
 import time
 
 import azcam
-from azcam.header import Header
 from azcam.telescope import Telescope
 
 

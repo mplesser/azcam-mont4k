@@ -9,7 +9,7 @@ import azcam.monitorinterface
 import azcam.shortcuts
 from azcam.cmdserver import CommandServer
 from azcam.genpars import GenPars
-from azcam.header import Header
+from azcam.system import System
 from azcam.webserver.web_server import WebServer
 
 from azcam_arc.controller_arc import ControllerArc
@@ -134,11 +134,6 @@ tempcon.control_temperature = -135.0
 tempcon.set_calibrations([0, 0, 3])
 
 # ****************************************************************
-# dewar
-# ****************************************************************
-controller.header.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
-
-# ****************************************************************
 # exposure
 # ****************************************************************
 exposure = ExposureArc()
@@ -198,8 +193,8 @@ telescope = telescope
 # ****************************************************************
 # system header template
 # ****************************************************************
-sysheader = Header("mont4k", template)
-sysheader.set_header("system", 0)
+system = System("mont4k", template)
+system.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
 
 # ****************************************************************
 # focus script - server-side
