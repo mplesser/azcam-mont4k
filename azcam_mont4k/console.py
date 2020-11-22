@@ -27,8 +27,8 @@ azcam.db.parfile = f"{azcam.db.datafolder}/parameters_{azcam.db.systemname}.ini"
 # start logging
 # ****************************************************************
 tt = datetime.datetime.strftime(datetime.datetime.now(), "%d%b%y_%H%M%S")
-azcam.db.logfile = os.path.join(azcam.db.datafolder, "logs", f"console_{tt}.log")
-azcam.logging.start_logging(azcam.db.logfile)
+azcam.db.logger.logfile = os.path.join(azcam.db.datafolder, "logs", f"console_{tt}.log")
+azcam.db.logger.start_logging()
 azcam.log(f"Configuring console for {azcam.db.systemname}")
 
 # ****************************************************************
