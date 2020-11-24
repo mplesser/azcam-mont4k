@@ -47,16 +47,14 @@ azcam.db.systemfolder = os.path.dirname(__file__)
 azcam.db.systemfolder = azcam.utils.fix_path(azcam.db.systemfolder)
 azcam.db.datafolder = os.path.join("/data", azcam.db.systemname)
 azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
-azcam.db.parfile = os.path.join(
-    azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini"
-)
+azcam.db.parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
 
 # ****************************************************************
 # enable logging
 # ****************************************************************
 tt = datetime.datetime.strftime(datetime.datetime.now(), "%d%b%y_%H%M%S")
 azcam.db.logger.logfile = os.path.join(azcam.db.datafolder, "logs", f"server_{tt}.log")
-azcam.db.logger.start_logging(azcam.db.logger.logfile, "123")
+azcam.db.logger.start_logging()
 
 azcam.log(f"Configuring for {option}")
 
@@ -67,25 +65,19 @@ CSS = 0
 RTS2 = 0
 NORMAL = 0
 if "mont4k" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
     default_object = None
 elif "RTS2" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
     default_object = "rts2"
 elif "CSS" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
@@ -114,12 +106,8 @@ controller.video_boards = ["gen2"]
 controller.utility_board = "gen3"
 controller.set_boards()
 controller.camserver.set_server("localhost", 2405)
-controller.utility_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsputility/util3.lod"
-)
-controller.pci_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod"
-)
+controller.utility_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsputility/util3.lod")
+controller.pci_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod")
 controller.timing_file = os.path.join(
     azcam.db.systemfolder, "dspcode", "dsptiming", "mont4k_config0.lod"
 )
