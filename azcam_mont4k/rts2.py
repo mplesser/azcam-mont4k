@@ -103,7 +103,7 @@ class RTS2(object):
 
         return etr
 
-    def camstat(self) -> typing.List:
+    def camstat(self) -> list:
         """
         Return camera status(temperatures).
         """
