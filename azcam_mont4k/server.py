@@ -5,7 +5,7 @@ import os
 import sys
 
 from azcam.server import azcam
-import azcam.monitorinterface
+from azcam.monitorinterface import MonitorInterface
 import azcam.shortcuts
 from azcam.cmdserver import CommandServer
 from azcam.genpars import GenPars
@@ -18,6 +18,10 @@ from azcam_arc.tempcon_arc import TempConArc
 from azcam_ds9.ds9display import Ds9Display
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import telescope
+from azcam_focus.focus_server import Focus
+import azcam_exptool
+import azcam_status
+import azcam_webobs
 
 # ****************************************************************
 # parse command line arguments
@@ -199,9 +203,7 @@ system.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
 # ****************************************************************
 # focus script - server-side
 # ****************************************************************
-from azcam_focus.focus_server import FocusServer
-
-focus = FocusServer()
+focus = Focus()
 azcam.db.cli_cmds["focus"] = focus
 focus.focus_component = "telescope"
 focus.focus_type = "absolute"
@@ -247,14 +249,10 @@ if CSS:
 # ****************************************************************
 # web server
 # ****************************************************************
-from azcam.webserver.web_server import WebServer
-
 webserver = WebServer()
-
-import azcam_exptool
-import azcam_status
-import azcam_webobs
-
+azcam_exptool.load()
+azcam_status.load()
+azcam_webobs.load()
 webserver.start()
 
 # ****************************************************************
