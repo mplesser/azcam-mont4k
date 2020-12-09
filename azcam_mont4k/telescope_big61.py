@@ -14,9 +14,9 @@ class Big61TCSng(Telescope):
     The interface to the Steward Observatory TCSng telescope server.
     """
 
-    def __init__(self, obj_id="telescope", obj_name="Big61 telescope"):
+    def __init__(self, obj_id="telescope", name="Big61 telescope"):
 
-        super().__init__(obj_id, obj_name)
+        super().__init__(obj_id, name)
 
         self.Host = ""
         self.TELID = ""

@@ -17,9 +17,9 @@ class Mont4kInstrument(Instrument):
     The InstrumentServer is J. Fookson's Ruby server.
     """
 
-    def __init__(self, obj_id="instrument", obj_name="Mont4k"):
+    def __init__(self, obj_id="instrument", name="Mont4k"):
 
-        super().__init__(obj_id, obj_name)
+        super().__init__(obj_id, name)
 
         self.Port = 9875
         self.Host = "10.30.1.1"
