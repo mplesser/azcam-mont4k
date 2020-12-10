@@ -57,21 +57,21 @@ class Big61TCSng(Telescope):
             "FOCUS": "telescope focus position",
         }
         self.typestrings = {
-            "RA": str,
-            "DEC": str,
-            "AIRMASS": float,
-            "HA": str,
-            "LST-OBS": str,
-            "EQUINOX": float,
-            "JULIAN": float,
-            "ELEVAT": float,
-            "AZIMUTH": float,
-            "MOTION": int,
-            "BEAM": int,
-            "ROTANGLE": float,
-            "ST": str,
-            "EPOCH": float,
-            "FOCUS": float,
+            "RA": "str",
+            "DEC": "str",
+            "AIRMASS": "float",
+            "HA": "str",
+            "LST-OBS": "str",
+            "EQUINOX": "float",
+            "JULIAN": "float",
+            "ELEVAT": "float",
+            "AZIMUTH": "float",
+            "MOTION": "int",
+            "BEAM": "int",
+            "ROTANGLE": "float",
+            "ST": "str",
+            "EPOCH": "float",
+            "FOCUS": "float",
         }
 
         # add keywords
@@ -220,7 +220,7 @@ class Big61TCSng(Telescope):
 
         for key in list(self.keywords.keys()):
             try:
-                t = self.header.get_type_string(self.typestrings[key])
+                t = self.header.typestrings[key]
                 list1 = [key, data[self.keywords[key]], self.comments[key], t]
                 header.append(list1)
             except Exception as message:
