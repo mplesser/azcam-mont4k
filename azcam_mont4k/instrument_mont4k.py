@@ -83,7 +83,7 @@ class Mont4kInstrument(Instrument):
         comments = {"FILTER": "Filter name"}
         types = {"FILTER": str}
         for key in keywords:
-            self.header.set_keyword(key, "", comments[key], types[key])
+            self.set_keyword(key, "", comments[key], types[key])
 
         return
 
@@ -99,34 +99,11 @@ class Mont4kInstrument(Instrument):
             raise azcam.AzcamError("keyword not defined")
 
         # store value in Header
-        self.header.set_keyword(keyword, reply)
+        self.set_keyword(keyword, reply)
 
         reply, t = self.header.convert_type(reply, self.header.typestrings[keyword])
 
         return [reply, self.header.comments[keyword], t]
-
-    def read_header(self):
-        """
-        Reads, records, and returns the current header.
-        This method looks up all keywords and queries hardware for the current value of each keyword.
-        Returns [Header[]]: Each element Header[i] contains the sublist (keyword, value, comment, and type).
-        Example: Header[2][1] is the value of keyword 2 and Header[2][3] is its type.
-        Type is one of 'str', 'int', 'float', or 'complex'.
-        """
-
-        if not self.enabled:
-            azcam.AzcamWarning("instrument not enabled")
-            return
-
-        header = []
-        reply = self.header.get_all_keywords()
-
-        for key in reply:
-            reply = self.get_keyword(key)
-            list1 = [key, reply[0], reply[1], reply[2]]
-            header.append(list1)
-
-        return header
 
     # *** filters ***
 
@@ -307,9 +284,7 @@ class InstrumentServerInterface(object):
         """
 
         try:
-            self.Socket.send(
-                str.encode(Command + "\r\n")
-            )  # send command with terminator
+            self.Socket.send(str.encode(Command + "\r\n"))  # send command with terminator
         except Exception:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]
