@@ -150,8 +150,8 @@ exposure.filetype = azcam.db.filetypes["MEF"]
 exposure.image.filetype = azcam.db.filetypes["MEF"]
 exposure.display_image = 0
 exposure.folder = imagefolder
-exposure.set_remote_server(remote_imageserver_host, remote_imageserver_port)
-# exposure.set_remote_server()
+exposure.set_remote_imageserver(remote_imageserver_host, remote_imageserver_port)
+# exposure.set_remote_imageserver()
 
 # ****************************************************************
 # detector
