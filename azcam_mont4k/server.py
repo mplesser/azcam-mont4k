@@ -5,13 +5,12 @@ import os
 import sys
 
 from azcam.server import azcam
-from azcam.monitorinterface import MonitorInterface
 import azcam.shortcuts
 from azcam.cmdserver import CommandServer
 from azcam.genpars import GenPars
 from azcam.system import System
 from azcam_webserver.web_server import WebServer
-
+from azcam_monitor.monitorinterface import MonitorInterface
 from azcam_arc.controller_arc import ControllerArc
 from azcam_arc.exposure_arc import ExposureArc
 from azcam_arc.tempcon_arc import TempConArc
