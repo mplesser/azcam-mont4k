@@ -25,7 +25,7 @@ else:
 
 profile = "azcamserver"
 
-import_command = f"import azcam_mont4k.server; from azcam.cli import *; del azcam.cli"
+import_command = f"import azcam_mont4k.server; from azcam.cli import *"
 
 # execute
 cl = (

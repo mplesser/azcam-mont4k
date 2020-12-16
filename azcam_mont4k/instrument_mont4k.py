@@ -284,7 +284,9 @@ class InstrumentServerInterface(object):
         """
 
         try:
-            self.Socket.send(str.encode(Command + "\r\n"))  # send command with terminator
+            self.Socket.send(
+                str.encode(Command + "\r\n")
+            )  # send command with terminator
         except Exception:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]

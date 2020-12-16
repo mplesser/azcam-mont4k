@@ -69,7 +69,9 @@ class Big61TCSng(Telescope):
 
         # add keywords to header
         for key in self.Tserver.keywords:
-            self.set_keyword(key, self.Tserver.comments[key], self.Tserver.typestrings[key])
+            self.set_keyword(
+                key, self.Tserver.comments[key], self.Tserver.typestrings[key]
+            )
 
         return
 
