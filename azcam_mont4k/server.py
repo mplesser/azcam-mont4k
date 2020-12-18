@@ -6,7 +6,7 @@ import sys
 
 import azcam
 import azcam.server
-import azcam.shortcuts
+import azcam.shortcuts_server
 from azcam.cmdserver import CommandServer
 from azcam.system import System
 from azcam_webserver.web_server import WebServer
@@ -145,8 +145,8 @@ else:
     remote_imageserver_host = "10.30.1.1"
     imagefolder = "/home/bigobs"
     azcam.db.servermode = "mont4k-normal"
-exposure.filetype = azcam.db.filetypes["MEF"]
-exposure.image.filetype = azcam.db.filetypes["MEF"]
+exposure.filetype = exposure.filetypes["MEF"]
+exposure.image.filetype = exposure.filetypes["MEF"]
 exposure.display_image = 0
 exposure.folder = imagefolder
 exposure.set_remote_imageserver(remote_imageserver_host, remote_imageserver_port)
