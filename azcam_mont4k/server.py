@@ -50,7 +50,7 @@ azcam.db.systemfolder = os.path.dirname(__file__)
 azcam.db.systemfolder = azcam.utils.fix_path(azcam.db.systemfolder)
 azcam.db.datafolder = os.path.join("/data", azcam.db.systemname)
 azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
-azcam.db.parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
+parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
 
 # ****************************************************************
 # enable logging
@@ -87,7 +87,7 @@ elif "CSS" in option:
     default_object = None
 else:
     azcam.AzcamError("invalid menu item")
-azcam.db.parfile = parfile
+parfile = parfile
 
 # ****************************************************************
 # define and start command server
@@ -221,8 +221,8 @@ else:
 # ****************************************************************
 # read par file
 # ****************************************************************
-pardict = azcam.api.config.parfile_read(parfile)
-azcam.api.config.update_pars(0, pardict["azcamserver"])
+pardict = azcam.api.config.read_parfile(parfile)
+azcam.api.config.update_pars(0, "azcamserver")
 
 # overwrite come pars
 if CSS:
