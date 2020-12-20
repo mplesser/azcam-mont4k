@@ -221,10 +221,8 @@ else:
 # ****************************************************************
 # read par file
 # ****************************************************************
-pardict = azcam.api.config.parfile_read(parfile)["azcamserver"]
-azcam.utils.update_pars(0, pardict)
-wd = azcam.api.config.get_par(pardict, "wd", "default")
-azcam.utils.curdir(wd)
+pardict = azcam.api.config.parfile_read(parfile)
+azcam.api.config.update_pars(0, pardict["azcamserver"])
 
 # overwrite come pars
 if CSS:
