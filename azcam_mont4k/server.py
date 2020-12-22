@@ -17,7 +17,7 @@ from azcam_arc.tempcon_arc import TempConArc
 from azcam_ds9.ds9display import Ds9Display
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import telescope
-from azcam_focus.focus_server import Focus
+from azcam_focus.focus import Focus
 import azcam_exptool
 import azcam_status
 import azcam_observe.webobs
@@ -189,7 +189,7 @@ system = System("mont4k", template)
 system.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
 
 # ****************************************************************
-# focus script - server-side
+# focus
 # ****************************************************************
 focus = Focus()
 azcam.db.cli_cmds["focus"] = focus
