@@ -20,7 +20,8 @@ from azcam_mont4k.telescope_big61 import telescope
 from azcam_focus.focus_server import Focus
 import azcam_exptool
 import azcam_status
-import azcam_webobs
+import azcam_observe.webobs
+
 
 # ****************************************************************
 # parse command line arguments
