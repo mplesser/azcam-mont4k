@@ -20,7 +20,6 @@ interactive = "-i"  # "-i" or ""
 if len(sys.argv) > 1:
     arguments = sys.argv[1:]
 else:
-    # arguments = ["-system VIRUS -data \data"]
     arguments = [""]
 
 profile = "azcamconsole"
