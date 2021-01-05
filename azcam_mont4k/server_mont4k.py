@@ -15,8 +15,6 @@ from azcam_arc.controller_arc import ControllerArc
 from azcam_arc.exposure_arc import ExposureArc
 from azcam_arc.tempcon_arc import TempConArc
 from azcam_ds9.ds9display import Ds9Display
-from azcam_mont4k.instrument_mont4k import Mont4kInstrument
-from azcam_mont4k.telescope_big61 import telescope
 from azcam_focus.focus import Focus
 import azcam_exptool
 import azcam_status
@@ -52,6 +50,11 @@ azcam.db.systemfolder = azcam.utils.fix_path(azcam.db.systemfolder)
 azcam.db.datafolder = os.path.join("/data", azcam.db.systemname)
 azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
 parfile = os.path.join(azcam.db.datafolder, f"parameters_{azcam.db.systemname}.ini")
+
+# ****************************************************************
+# add folders to search path
+# ****************************************************************
+azcam.utils.add_searchfolder(azcam.db.systemfolder, 0)
 
 # ****************************************************************
 # enable logging
@@ -174,12 +177,16 @@ exposure.image.focalplane.wcs.scale2 = [sc, sc]
 # ****************************************************************
 # instrument
 # ****************************************************************
+from instrument_mont4k import Mont4kInstrument
+
 instrument = Mont4kInstrument()
 instrument.enabled = 1
 
 # ****************************************************************
 # telescope
 # ****************************************************************
+from telescope_big61 import telescope
+
 telescope = telescope
 
 # ****************************************************************
@@ -205,13 +212,13 @@ display = Ds9Display()
 # system-specific
 # ****************************************************************
 if CSS:
-    from azcam_mont4k.css import CSS
+    from css import CSS
 
     css = CSS()
     azcam.db.cli_cmds["css"] = css
     process_path = "c:/azcam/azcam-mont4k/bin/start_server_css.bat"
 elif RTS2:
-    from azcam_mont4k.rts2 import RTS2
+    from rts2 import RTS2
 
     rts2 = RTS2()
     rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
@@ -237,19 +244,19 @@ if CSS:
 webserver = WebServer()
 azcam_exptool.load()
 azcam_status.load()
-azcam_webobs.load()
+azcam_observe.webobs.load()
 webserver.start()
 
 # ****************************************************************
 # camera server
 # ****************************************************************
-import azcam_mont4k.restart_cameraserver
+import restart_cameraserver
 
 # ****************************************************************
 # GUIs
 # ****************************************************************
 if 1:
-    import azcam_mont4k.start_azcamtool
+    import start_azcamtool
 
 # ****************************************************************
 # finish

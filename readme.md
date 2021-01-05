@@ -2,10 +2,10 @@
 
 ## Purpose
 
-This repository contains the *azcam-mont4k* *azcam* extension.  It has the environment, configuration, and system files for the University of Arizona Kuiper telescope Mont4k facility camera system.
+This repository contains the *azcam-mont4k* *azcam* environment.  It contains the code and data files for the University of Arizona Kuiper telescope Mont4k facility camera system.
 
 ## Installation Example
 
-Install only in editable mode because some files (such as DSP code) have static filenames. For Windows systems this code is usually cloned into `c:\azcam\azcam-mont4k`.
+`git clone https://github.com/uaitl/azcam-mont4k`
 
-* `pip install -e .`
+For Windows systems this code is usually cloned into `c:\azcam\azcam-mont4k`.
