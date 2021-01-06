@@ -62,7 +62,9 @@ class RTS2(object):
         roi_num=0,
     ):
 
-        azcam.api.exposure.set_roi(first_col, last_col, first_row, last_row, col_bin, row_bin)
+        azcam.api.exposure.set_roi(
+            first_col, last_col, first_row, last_row, col_bin, row_bin
+        )
 
         return
 
