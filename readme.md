@@ -8,4 +8,4 @@ This repository contains the *azcam-mont4k* *azcam* environment.  It contains th
 
 `git clone https://github.com/uaitl/azcam-mont4k`
 
-For Windows systems this code is usually cloned into `c:\azcam\azcam-mont4k`.
+For Windows systems the normal destination is `c:\azcam\azcam-mont4k`.
