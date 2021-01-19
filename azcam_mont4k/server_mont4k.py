@@ -72,28 +72,25 @@ CSS = 0
 RTS2 = 0
 NORMAL = 0
 if "mont4k" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_master.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k.ini")
     NORMAL = 1
     cmdport = 2402
+    azcam.db.servermode = "mont4k"
     default_object = None
 elif "RTS2" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_rts2.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_rts2.ini")
     RTS2 = 1
     cmdport = 2412
+    azcam.db.servermode = "RTS2"
     default_object = "rts2"
 elif "CSS" in option:
-    template = os.path.join(
-        azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt"
-    )
+    template = os.path.join(azcam.db.datafolder, "templates", "FitsTemplate_mont4k_css.txt")
     parfile = os.path.join(azcam.db.datafolder, "parameters_mont4k_css.ini")
     CSS = 1
     cmdport = 2422
+    azcam.db.servermode = "CSS"
     default_object = None
 else:
     azcam.AzcamError("invalid menu item")
@@ -119,12 +116,8 @@ controller.video_boards = ["gen2"]
 controller.utility_board = "gen3"
 controller.set_boards()
 controller.camserver.set_server("localhost", 2405)
-controller.utility_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsputility/util3.lod"
-)
-controller.pci_file = os.path.join(
-    azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod"
-)
+controller.utility_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsputility/util3.lod")
+controller.pci_file = os.path.join(azcam.db.systemfolder, "dspcode", "dsppci", "pci3.lod")
 controller.timing_file = os.path.join(
     azcam.db.systemfolder, "dspcode", "dsptiming", "mont4k_config0.lod"
 )
@@ -252,10 +245,13 @@ if CSS:
 # web server
 # ****************************************************************
 webserver = WebServer()
+webserver.templates_folder = azcam.db.systemfolder
+webserver.port = 2403  # common port for all configurations
+webserver.index = f"index_Mont4k.html"
+webserver.start()
 azcam_exptool.load()
 azcam_status.load()
 azcam_observe.webobs.load()
-webserver.start()
 
 # ****************************************************************
 # camera server
