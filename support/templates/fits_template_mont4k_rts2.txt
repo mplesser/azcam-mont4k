@@ -1,0 +1,18 @@
+OBSERVER RTS2
+DETECTOR mont4k sn3088	/ Detector name
+PIXSIZE1 15.0		/ Pixel size for axis 1 (microns)
+PIXSIZE2 15.0		/ Pixel size for axis 2 (microns)
+GAIN1    3.17		/ Conversion gain (e-/DN) for amp 1
+GAIN2    3.185		/ Conversion gain (e-/DN) for amp 2
+RDNOISE1 6.8		/ Read noise (electrons) for amp 1
+RDNOISE2 6.7		/ Read noise (electrons) for amp 2
+DARKCUR  0.0		/ Average dark current (e-/pixel/hour)
+INSTRUME mont4k		/ Instrument name
+PIXSCAL1 0.15		/ Pixel scale for axis 1 (arcsec/unbinned pixel)
+PIXSCAL2 0.15		/ Pixel scale for axis 2 (arcsec/unbinned pixel)
+TELESCOP bigelow-1.55m	/ Telescope name
+SITELAT  32:24:59.3	/ Latitude (DD:MM:SS.S North)
+SITELONG 110:44:04.3	/ Longitude (DD:MM:SS.S West)
+SITEELEV 2510		/ Altitude (meters)
+TIMEZONE 7		/ local time zone
+OBSERVAT mtbigelow	/ Observatory

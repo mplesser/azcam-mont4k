@@ -1,0 +1,54 @@
+; GEN2CLK_clockstates_brd2.asm
+; clock states for GEN2 clock board addressed as board 2
+
+; low bank
+P1B2L	EQU     0		;	CLK0	Pin 1
+P1B2H	EQU     1		;	CLK0
+P2B2L	EQU     0		;	CLK1	Pin 2
+P2B2H	EQU     2		;	CLK1
+P3B2L	EQU     0		;	CLK2	Pin 3
+P3B2H	EQU     4		;	CLK2
+P4B2L	EQU     0		;	CLK3	Pin 4
+P4B2H	EQU     8		;	CLK3
+P5B2L	EQU     0		;	CLK4	Pin 5
+P5B2H	EQU     $10		;	CLK4
+P6B2L	EQU     0		;	CLK5	Pin 6
+P6B2H	EQU     $20		;	CLK5
+P7B2L	EQU     0		;	CLK6	Pin 7
+P7B2H	EQU     $40		;	CLK6
+P8B2L	EQU     0		;	CLK7	Pin 8
+P8B2H	EQU     $80		;	CLK7
+P9B2L	EQU     0		;	CLK8	Pin 9
+P9B2H	EQU     $100		;	CLK8
+P10B2L	EQU     0		;	CLK9	Pin 10
+P10B2H	EQU     $200		;	CLK9
+P11B2L	EQU     0		;	CLK10	Pin 11
+P11B2H	EQU     $400		;	CLK10
+P12B2L	EQU     0		;	CLK10	Pin 12
+P12B2H	EQU     $800		;	CLK10
+
+; high bank
+P13B2L	EQU     0		;	CLK12	Pin 13
+P13B2H	EQU     1		;	CLK12
+P14B2L	EQU     0		;	CLK13	Pin 14
+P14B2H	EQU     2		;	CLK13
+P15B2L	EQU     0		;	CLK14	Pin 15
+P15B2H	EQU     4		;	CLK14
+P16B2L	EQU     0		;	CLK15	Pin 16
+P16B2H	EQU     8		;	CLK15
+P17B2L	EQU     0		;	CLK16	Pin 17
+P17B2H	EQU     $10		;	CLK16
+P18B2L	EQU     0		;	CLK17	Pin 18
+P18B2H	EQU     $20		;	CLK17
+P19B2L	EQU     0		;	CLK18	Pin 19
+P19B2H	EQU     $40		;	CLK18
+P33B2L	EQU     0		;	CLK19	Pin 33
+P33B2H	EQU     $80		;	CLK19
+P34B2L	EQU     0		;	CLK20	Pin 34
+P34B2H	EQU     $100		;	CLK20
+P35B2L	EQU     0		;	CLK21	Pin 35
+P35B2H	EQU     $200		;	CLK21
+P36B2L	EQU     0		;	CLK22	Pin 36
+P36B2H	EQU     $400		;	CLK22
+P37B2L	EQU     0		;	CLK23	Pin 37
+P37B2H	EQU     $800		;	CLK23

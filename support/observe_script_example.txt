@@ -1,0 +1,25 @@
+# AzCam Observing Script:
+
+# COMMANDS
+# obs        ExposureTime ImageType Title NumberExposures Filter RA DEC Epoch
+# dither     ExposureTime ImageType Title NumberExposures Filter RA DEC Epoch
+# setdither  ra0 dec0 ra1 dec1 ra2 dec2 ...
+# stepfocus  RelativeNumberSteps
+# steptel    RA_ArcSecs Dec_ArcSecs
+# movetel    RA Dec Epoch
+# movefilter FilterName
+# delay      NumberSecs
+# print      'hi there '
+# prompt     'press any key to continue...'
+# verbose    on
+# verbose    off
+# quit       quit script
+
+# Keyboard commands during script execution:
+# q          quit script
+# p          pause script
+# anykey     continue a paused script (q quits)
+
+movefilter Harris-R
+obs 0.0 zero 'zero' 1
+obs 5.0 flat 'flat' 1
