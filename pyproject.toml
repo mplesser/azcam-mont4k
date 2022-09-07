@@ -13,17 +13,17 @@ documentation = "https://mplesser.github.io/azcam/"
 python = "^3.9,<3.11"
 ipython = "*"
 rich = "*"
-azcam = { git = "https://github.com/mplesser/azcam.git", branch = "main" }
-azcam-monitor = { git = "https://github.com/mplesser/azcam-monitor.git", branch = "main" }
-azcam-fastapi = { git = "https://github.com/mplesser/azcam-fastapi.git", branch = "main" }
-azcam-arc = { git = "https://github.com/mplesser/azcam-arc.git", branch = "main" }
-azcam-ds9 = { git = "https://github.com/mplesser/azcam-ds9.git", branch = "main" }
-azcam-imageserver = { git = "https://github.com/mplesser/azcam-imageserver.git", branch = "main" }
-azcam-observe = { git = "https://github.com/mplesser/azcam-observe.git", branch = "main" }
-azcam-focus = { git = "https://github.com/mplesser/azcam-focus.git", branch = "main" }
-azcam-scripts = { git = "https://github.com/mplesser/azcam-scripts.git", branch = "main" }
-azcam-testers = { git = "https://github.com/mplesser/azcam-testers.git", branch = "main" }
-azcam-webtools = { git = "https://github.com/mplesser/azcam-webtools.git", branch = "main" }
+azcam = "*"
+azcam-monitor = "*"
+azcam-fastapi = "*"
+azcam-arc = "*"
+azcam-ds9 = "*"
+azcam-imageserver = "*"
+azcam-observe = "*"
+azcam-focus = "*"
+azcam-scripts = "*"
+azcam-testers = "*"
+azcam-webtools = "*"
 
 [tool.poetry.dev-dependencies]
 
