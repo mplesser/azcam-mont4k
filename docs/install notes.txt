@@ -26,5 +26,5 @@
 # Notes
 
 # update powershell
-winget install --id=Microsoft.PowerShell -e
+- winget install --id=Microsoft.PowerShell -e
 
