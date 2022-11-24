@@ -1,26 +1,16 @@
 [project]
 name = "azcam-mont4k"
-version = "22.2.1"
+version = "22.3.0"
 description = "Azcam extension for Kuiper telescope Mont4k facility cameras"
 license = {file ="LICENSE"}
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.8"
 keywords=["ccd", "imaging", "astronomy", "sensors"]
 authors = [{name="Michael Lesser"},{email = "mlesser@arizona.edu"}]
 dependencies = [
     "ipython",
     "rich",
     "azcam",
-    "azcam-monitor",
-    "azcam-fastapi",
-    "azcam-arc",
-    "azcam-ds9",
-    "azcam-imageserver",
-    "azcam-observe",
-    "azcam-focus",
-    "azcam-scripts",
-    "azcam-testers",
-    "azcam-webtools",
 ]
 
 [project.urls]
