@@ -1,6 +1,6 @@
 [project]
 name = "azcam-mont4k"
-version = "22.3.0"
+version = "22.3.1"
 description = "Azcam extension for Kuiper telescope Mont4k facility cameras"
 license = {file ="LICENSE"}
 readme = "README.md"
