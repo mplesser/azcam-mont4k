@@ -47,7 +47,7 @@ class RTS2(object):
         Set parameter.
         """
 
-        azcam.db.tools["parameters"].set_par(parameter, value)
+        azcam.db.parameters.set_par(parameter, value)
 
         return
 

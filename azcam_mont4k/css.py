@@ -40,10 +40,10 @@ class CSS(object):
         title is the image title.
         """
 
-        azcam.db.tools["parameters"].set_par("imagetest", 0)
-        azcam.db.tools["parameters"].set_par("imageautoname", 0)
-        azcam.db.tools["parameters"].set_par("imageincludesequencenumber", 0)
-        azcam.db.tools["parameters"].set_par("imageautoincrementsequencenumber", 0)
+        azcam.db.parameters.set_par("imagetest", 0)
+        azcam.db.parameters.set_par("imageautoname", 0)
+        azcam.db.parameters.set_par("imageincludesequencenumber", 0)
+        azcam.db.parameters.set_par("imageautoincrementsequencenumber", 0)
 
         azcam.db.tools["exposure"].set_filename(filename)
         azcam.db.tools["exposure"].expose1(exposuretime, imagetype, title)
