@@ -4,19 +4,19 @@ import os
 import sys
 
 import azcam
-import azcam.server
-import azcam.shortcuts
-from azcam.cmdserver import CommandServer
-from azcam.system import System
+import azcam_server.server
+import azcam_server.shortcuts
+from azcam_server.cmdserver import CommandServer
+from azcam.header import System
 from azcam_monitor.monitorinterface import AzCamMonitorInterface
-from azcam.tools.arc.controller_arc import ControllerArc
-from azcam.tools.arc.exposure_arc import ExposureArc
-from azcam.tools.arc.tempcon_arc import TempConArc
+from azcam_server.tools.arc.controller_arc import ControllerArc
+from azcam_server.tools.arc.exposure_arc import ExposureArc
+from azcam_server.tools.arc.tempcon_arc import TempConArc
 from azcam.tools.ds9display import Ds9Display
 from azcam.tools.sendimage import SendImage
-from azcam.tools.focus import Focus
-from azcam.tools.webserver.fastapi_server import WebServer
-from azcam.tools.webtools.status.status import Status
+from azcam_server.tools.focus import Focus
+from azcam_server.tools.webserver.fastapi_server import WebServer
+from azcam_server.tools.webtools.status.status import Status
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
