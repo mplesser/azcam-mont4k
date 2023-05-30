@@ -7,7 +7,7 @@ import time
 import threading
 
 import azcam
-from azcam.tools.instrument import Instrument
+from azcam_server.tools.instrument import Instrument
 
 
 class Mont4kInstrument(Instrument):
@@ -17,7 +17,6 @@ class Mont4kInstrument(Instrument):
     """
 
     def __init__(self, tool_id="instrument", description="Mont4k instrument"):
-
         super().__init__(tool_id, description)
 
         self.port = 9875
@@ -43,7 +42,6 @@ class Mont4kInstrument(Instrument):
             self.initialize()
 
         with self.lock:
-
             self.iserver.open()
             if self.iserver.opened:
                 self.iserver.recv1()  # read string and ignore for now
@@ -209,7 +207,6 @@ class InstrumentServerInterface(object):
     """
 
     def __init__(self, host, port):
-
         self.host = host
         self.port = port
         self.opened = 0

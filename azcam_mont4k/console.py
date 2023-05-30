@@ -7,9 +7,9 @@ import threading
 import azcam
 import azcam_console
 import azcam_console.shortcuts
-from azcam.tools.ds9display import Ds9Display
-from azcam_console.tools.focus import Focus
-from azcam_server.tools.observe import Observe
+from azcam_server.tools.ds9display import Ds9Display
+from azcam_console.tools.focus import FocusConsole
+from azcam_observe.observe_cli.observe_cli import ObserveCli
 
 try:
     i = sys.argv.index("-datafolder")
@@ -66,14 +66,14 @@ create_console_tools()
 # ****************************************************************
 # focus tool
 # ****************************************************************
-focus = Focus()
+focus = FocusConsole()
 focus.focus_component = "telescope"
 focus.focus_type = "absolute"
 
 # ****************************************************************
 # observe
 # ****************************************************************
-observe = Observe()
+observe = ObserveCli()
 
 # ****************************************************************
 # try to connect to azcamserver

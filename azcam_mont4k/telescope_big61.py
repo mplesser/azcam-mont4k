@@ -4,7 +4,7 @@ import socket
 import time
 
 import azcam
-from azcam.tools.telescope import Telescope
+from azcam_server.tools.telescope import Telescope
 
 
 class Big61TCSng(Telescope):
@@ -13,7 +13,6 @@ class Big61TCSng(Telescope):
     """
 
     def __init__(self, tool_id="telescope", description="Big61 telescope"):
-
         super().__init__(tool_id, description)
 
         self.Tserver = TelescopeNG()
@@ -62,7 +61,7 @@ class Big61TCSng(Telescope):
 
         # add keywords to header
         for key in self.Tserver.keywords:
-            #self.set_keyword(key, "", self.Tserver.comments[key], self.Tserver.typestrings[key])
+            # self.set_keyword(key, "", self.Tserver.comments[key], self.Tserver.typestrings[key])
 
             self.header.keywords[key] = self.Tserver.keywords[key]
             self.header.comments[key] = self.Tserver.comments[key]
@@ -218,7 +217,6 @@ class Big61TCSng(Telescope):
 
 
 class TelescopeNG:
-
     # All methods that bind to a tcsng server request
     # will begin with req and all methods that bind to
     # a tcsng server command will begin with com
@@ -228,7 +226,6 @@ class TelescopeNG:
     # tcsng command or request
 
     def __init__(self):
-
         self.hostname = "10.30.5.69"
         self.telid = "BIG61"
         self.port = 5750
@@ -239,8 +236,10 @@ class TelescopeNG:
             raise ValueError("Cannot find telescope address")
 
         # Make sure we can talk to this telescope
+        """ 
         if not self.request("EL"):
             raise socket.error
+        """
 
         # the value Keywords is the string used by TCS
         self.keywords = {
@@ -295,7 +294,6 @@ class TelescopeNG:
         }
 
     def request(self, reqstr, timeout=1.0, retry=True):
-
         """This is the main TCSng request method all
         server requests must come through here."""
 

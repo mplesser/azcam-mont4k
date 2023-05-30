@@ -4,7 +4,7 @@ import os
 import azcam
 
 exe = os.environ.get("AZCAMTOOL")
-cmdserver = azcam.db.tools.get("cmdserver")
+cmdserver = azcam.db.get("cmdserver")
 
 if cmdserver is None:
     cmdport = 2402
