@@ -236,7 +236,7 @@ else:
 # read par file
 # ****************************************************************
 azcam.db.parameters.read_parfile(parfile)
-azcam.db.parameters.update_pars(0, "azcamserver")
+azcam.db.parameters.update_pars("azcamserver")
 
 # overwrite come pars
 if CSS:
