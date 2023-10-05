@@ -10,7 +10,7 @@ authors = [{ name = "Michael Lesser" }, { email = "mlesser@arizona.edu" }]
 dependencies = ["ipython==8.10", "rich", "azcam"]
 
 [project.urls]
-Documentation = "https://mplesser.github.io/azcam/"
+Documentation = "https://azcam.readthedocs.io/"
 Repository = "https://github.com/mplesser/azcam-mont4k/"
 
 
