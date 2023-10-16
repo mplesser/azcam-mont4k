@@ -7,7 +7,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 keywords = ["ccd", "imaging", "astronomy", "sensors"]
 authors = [{ name = "Michael Lesser" }, { email = "mlesser@arizona.edu" }]
-dependencies = ["ipython", "rich", "azcam"]
+dependencies = ["ipython", "rich", "azcam", "azcam-server", "azcam-console"]
 
 [project.urls]
 Documentation = "https://azcam.readthedocs.io/"
