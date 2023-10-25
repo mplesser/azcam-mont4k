@@ -15,8 +15,9 @@ from azcam_server.tools.arc.tempcon_arc import TempConArc
 from azcam_server.tools.ds9display import Ds9Display
 from azcam_server.tools.sendimage import SendImage
 from azcam_server.tools.focus import Focus
-from azcam_server.tools.webserver.fastapi_server import WebServer
-from azcam_server.tools.webtools.status.status import Status
+from azcam_server.webserver.fastapi_server import WebServer
+from azcam_webtools.status.status import Status
+from azcam_webtools.exptool.exptool import Exptool
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
