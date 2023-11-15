@@ -15,8 +15,9 @@ from azcam_server.tools.arc.tempcon_arc import TempConArc
 from azcam_server.tools.ds9display import Ds9Display
 from azcam_server.tools.sendimage import SendImage
 from azcam_server.tools.focus import Focus
-from azcam_server.tools.webserver.fastapi_server import WebServer
-from azcam_server.tools.webtools.status.status import Status
+from azcam_server.webserver.fastapi_server import WebServer
+from azcam_webtools.status.status import Status
+from azcam_webtools.exptool.exptool import Exptool
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
@@ -86,22 +87,34 @@ CSS = 0
 RTS2 = 0
 NORMAL = 0
 if "mont4k" in option:
-    template = os.path.join(azcam.db.datafolder, "templates", "fits_template_mont4k_master.txt")
-    parfile = os.path.join(azcam.db.datafolder, "parameters", "parameters_server_mont4k.ini")
+    template = os.path.join(
+        azcam.db.datafolder, "templates", "fits_template_mont4k_master.txt"
+    )
+    parfile = os.path.join(
+        azcam.db.datafolder, "parameters", "parameters_server_mont4k.ini"
+    )
     NORMAL = 1
     cmdport = 2402
     azcam.db.servermode = "mont4k"
     default_tool = None
 elif "RTS2" in option:
-    template = os.path.join(azcam.db.datafolder, "templates", "fits_template_mont4k_rts2.txt")
-    parfile = os.path.join(azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini")
+    template = os.path.join(
+        azcam.db.datafolder, "templates", "fits_template_mont4k_rts2.txt"
+    )
+    parfile = os.path.join(
+        azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini"
+    )
     RTS2 = 1
     cmdport = 2412
     azcam.db.servermode = "RTS2"
     default_tool = "rts2"
 elif "CSS" in option:
-    template = os.path.join(azcam.db.datafolder, "templates", "fits_template_mont4k_css.txt")
-    parfile = os.path.join(azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini")
+    template = os.path.join(
+        azcam.db.datafolder, "templates", "fits_template_mont4k_css.txt"
+    )
+    parfile = os.path.join(
+        azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini"
+    )
     CSS = 1
     cmdport = 2422
     azcam.db.servermode = "CSS"
@@ -119,7 +132,9 @@ controller.clock_boards = ["gen3"]
 controller.video_boards = ["gen2"]
 controller.utility_board = "gen3"
 controller.set_boards()
-controller.utility_file = os.path.join(azcam.db.datafolder, "dspcode", "dsputility/util3.lod")
+controller.utility_file = os.path.join(
+    azcam.db.datafolder, "dspcode", "dsputility/util3.lod"
+)
 controller.pci_file = os.path.join(azcam.db.datafolder, "dspcode", "dsppci", "pci3.lod")
 controller.timing_file = os.path.join(
     azcam.db.datafolder, "dspcode", "dsptiming", "mont4k_config0.lod"
@@ -150,17 +165,23 @@ if CSS:
     remote_imageserver_host = "10.30.7.82"
     imagefolder = "/home/css"
     azcam.db.servermode = "mont4k-css"
-    sendimage.set_remote_imageserver(remote_imageserver_host, remote_imageserver_port, "azcam")
+    sendimage.set_remote_imageserver(
+        remote_imageserver_host, remote_imageserver_port, "azcam"
+    )
 elif RTS2:
     remote_imageserver_host = "10.30.1.24"
     imagefolder = "/home/rts2obs"
     azcam.db.servermode = "mont4k-rts2"
-    sendimage.set_remote_imageserver(remote_imageserver_host, remote_imageserver_port, "dataserver")
+    sendimage.set_remote_imageserver(
+        remote_imageserver_host, remote_imageserver_port, "dataserver"
+    )
 else:
     remote_imageserver_host = "10.30.1.1"
     imagefolder = "/home/bigobs"
     azcam.db.servermode = "mont4k-normal"
-    sendimage.set_remote_imageserver(remote_imageserver_host, remote_imageserver_port, "dataserver")
+    sendimage.set_remote_imageserver(
+        remote_imageserver_host, remote_imageserver_port, "dataserver"
+    )
 exposure.filetype = exposure.filetypes["MEF"]
 exposure.image.filetype = exposure.filetypes["MEF"]
 exposure.display_image = 0
