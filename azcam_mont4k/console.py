@@ -1,4 +1,6 @@
-# azcamconsole config file for mont4k
+"""
+azcamconsole config for mont4k
+"""
 
 import os
 import sys
@@ -22,71 +24,87 @@ try:
 except ValueError:
     lab = 0
 
-# ****************************************************************
-# files and folders
-# ****************************************************************
-azcam.db.systemname = "mont4k"
 
-azcam.db.systemfolder = f"{os.path.dirname(__file__)}"
+def setup():
+    global datafolder, lab
 
-if datafolder is None:
-    droot = os.environ.get("AZCAM_DATAROOT")
-    if droot is None:
-        droot = "/data"
-    azcam.db.datafolder = os.path.join(droot, azcam.db.systemname)
-else:
-    azcam.db.datafolder = datafolder
-azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
+    # ****************************************************************
+    # files and folders
+    # ****************************************************************
+    azcam.db.systemname = "mont4k"
 
-parfile = os.path.join(
-    azcam.db.datafolder, "parameters", f"parameters_console_{azcam.db.systemname}.ini"
-)
+    azcam.db.systemfolder = f"{os.path.dirname(__file__)}"
 
-# ****************************************************************
-# start logging
-# ****************************************************************
-logfile = os.path.join(azcam.db.datafolder, "logs", "console.log")
-azcam.db.logger.start_logging(logfile=logfile)
-azcam.log(f"Configuring console for {azcam.db.systemname}")
+    if datafolder is None:
+        droot = os.environ.get("AZCAM_DATAROOT")
+        if droot is None:
+            droot = "/data"
+        azcam.db.datafolder = os.path.join(droot, azcam.db.systemname)
+    else:
+        azcam.db.datafolder = datafolder
+    azcam.db.datafolder = azcam.utils.fix_path(azcam.db.datafolder)
 
-# ****************************************************************
-# display
-# ****************************************************************
-display = Ds9Display()
-dthread = threading.Thread(target=display.initialize, args=[])
-dthread.start()  # thread just for speed
+    parfile = os.path.join(
+        azcam.db.datafolder,
+        "parameters",
+        f"parameters_console_{azcam.db.systemname}.ini",
+    )
 
-# ****************************************************************
-# console tools
-# ****************************************************************
-from azcam_console.tools import create_console_tools
+    # ****************************************************************
+    # start logging
+    # ****************************************************************
+    logfile = os.path.join(azcam.db.datafolder, "logs", "console.log")
+    azcam.db.logger.start_logging(logfile=logfile)
+    azcam.log(f"Configuring console for {azcam.db.systemname}")
 
-create_console_tools()
+    # ****************************************************************
+    # display
+    # ****************************************************************
+    display = Ds9Display()
+    dthread = threading.Thread(target=display.initialize, args=[])
+    dthread.start()  # thread just for speed
 
-# ****************************************************************
-# focus tool
-# ****************************************************************
-focus = FocusConsole()
-focus.focus_component = "telescope"
-focus.focus_type = "absolute"
+    # ****************************************************************
+    # console tools
+    # ****************************************************************
+    from azcam_console.tools import create_console_tools
 
-# ****************************************************************
-# observe
-# ****************************************************************
-observe = ObserveCli()
+    create_console_tools()
 
-# ****************************************************************
-# try to connect to azcamserver
-# ****************************************************************
-server = azcam.db.tools["server"]
-connected = server.connect()
-if connected:
-    azcam.log("Connected to azcamserver")
-else:
-    azcam.log("Not connected to azcamserver")
+    # ****************************************************************
+    # focus tool
+    # ****************************************************************
+    focus = FocusConsole()
+    focus.focus_component = "telescope"
+    focus.focus_type = "absolute"
 
-# ****************************************************************
-# read par file
-# ****************************************************************
-azcam.db.parameters.read_parfile(parfile)
-azcam.db.parameters.update_pars("azcamconsole")
+    # ****************************************************************
+    # observe
+    # ****************************************************************
+    observe = ObserveCli()
+
+    # ****************************************************************
+    # try to connect to azcamserver
+    # ****************************************************************
+    server = azcam.db.tools["server"]
+    connected = server.connect()
+    if connected:
+        azcam.log("Connected to azcamserver")
+    else:
+        azcam.log("Not connected to azcamserver")
+
+    # ****************************************************************
+    # read par file
+    # ****************************************************************
+    azcam.db.parameters.read_parfile(parfile)
+    azcam.db.parameters.update_pars("azcamconsole")
+
+    # try to change window title
+    try:
+        ctypes.windll.kernel32.SetConsoleTitleW("azcamconsole")
+    except Exception:
+        pass
+
+
+setup()
+from azcam.cli import *

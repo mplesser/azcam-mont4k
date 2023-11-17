@@ -1,8 +1,6 @@
 import subprocess
 import time
 
-from black import err
-
 cmd = "w32tm /query /status"
 
 while 1:
