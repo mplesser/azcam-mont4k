@@ -256,20 +256,22 @@ def setup():
     # system-specific
     # ****************************************************************
     start_azcamtool = 1
+    monitor = AzCamMonitorInterface()
     if CSS:
         from azcam_mont4k.css import CSS
 
         css = CSS()
-        _process_path = "c:/azcam/azcam-mont4k/bin/start_server_css.bat"
+        monitor.proc_path = "/data/mont4k/bin/start_server_css.bat"
     elif RTS2:
         from azcam_mont4k.rts2 import RTS2
 
         rts2 = RTS2()
         rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
-        _process_path = "c:/azcam/azcam-mont4k/bin/start_server_rts2.bat"
         start_azcamtool = 0
+        monitor.proc_path = "/data/mont4k/bin/start_server_rts2.bat"
     else:
-        _process_path = "c:/azcam/azcam-mont4k/bin/start_server_mont4k.bat"
+        monitor.proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
+    monitor.register()
 
     # ****************************************************************
     # read par file
@@ -298,7 +300,7 @@ def setup():
     # web server
     # ****************************************************************
     webserver = WebServer()
-    webserver.port = 2403  # common port for all configurations
+    webserver.port = 2413
     webserver.index = os.path.join(azcam.db.systemfolder, "index_mont4k.html")
     webserver.start()
     webstatus = Status()
