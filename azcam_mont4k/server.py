@@ -23,8 +23,6 @@ from azcam_webtools.webserver.fastapi_server import WebServer
 from azcam_webtools.status.status import Status
 from azcam_webtools.exptool.exptool import Exptool
 
-from azcam_monitor.monitorinterface import AzCamMonitorInterface
-
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
 
@@ -260,22 +258,21 @@ def setup():
     # system-specific
     # ****************************************************************
     start_azcamtool = 1
-    monitor = AzCamMonitorInterface()
     if CSS:
         from azcam_mont4k.css import CSS
 
         css = CSS()
-        monitor.proc_path = "/data/mont4k/bin/start_server_css.bat"
+        azcam.db.monitor.proc_path = "/data/mont4k/bin/start_server_css.bat"
     elif RTS2:
         from azcam_mont4k.rts2 import RTS2
 
         rts2 = RTS2()
         rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
         start_azcamtool = 0
-        monitor.proc_path = "/data/mont4k/bin/start_server_rts2.bat"
+        azcam.db.monitor.proc_path = "/data/mont4k/bin/start_server_rts2.bat"
     else:
-        monitor.proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
-    monitor.register()
+        azcam.db.monitor.monitor.proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
+    azcam.db.monitor.register()
 
     # ****************************************************************
     # read par file
