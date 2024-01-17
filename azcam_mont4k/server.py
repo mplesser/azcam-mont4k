@@ -106,6 +106,7 @@ def setup():
         NORMAL = 1
         cmdport = 2402
         azcam.db.servermode = "mont4k"
+        azcam.db.process_name = "mont4k-normal"
         default_tool = None
     elif "RTS2" in option:
         template = os.path.join(
@@ -117,6 +118,7 @@ def setup():
         RTS2 = 1
         cmdport = 2412
         azcam.db.servermode = "RTS2"
+        azcam.db.process_name = "mont4k-rts2"
         default_tool = "rts2"
     elif "CSS" in option:
         template = os.path.join(
@@ -128,6 +130,7 @@ def setup():
         CSS = 1
         cmdport = 2422
         azcam.db.servermode = "CSS"
+        azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
         azcam.AzcamError("invalid menu item")
@@ -262,17 +265,16 @@ def setup():
         from azcam_mont4k.css import CSS
 
         css = CSS()
-        azcam.db.monitor.proc_path = "/data/mont4k/bin/start_server_css.bat"
+        proc_path = "/data/mont4k/bin/start_server_css.bat"
     elif RTS2:
         from azcam_mont4k.rts2 import RTS2
 
         rts2 = RTS2()
         rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
         start_azcamtool = 0
-        azcam.db.monitor.proc_path = "/data/mont4k/bin/start_server_rts2.bat"
+        proc_path = "/data/mont4k/bin/start_server_rts2.bat"
     else:
-        azcam.db.monitor.monitor.proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
-    azcam.db.monitor.register()
+        proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
 
     # ****************************************************************
     # read par file
@@ -296,6 +298,9 @@ def setup():
     cmdserver.start()
     if default_tool is not None:
         azcam.db.default_tool = default_tool
+
+    azcam.db.monitor.proc_path = proc_path
+    azcam.db.monitor.register()  # register azcammonitor with command port
 
     # ****************************************************************
     # web server
