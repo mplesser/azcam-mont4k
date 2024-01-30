@@ -1,5 +1,7 @@
 """
-azcamserver server for mont4k
+Setup method for mont4k azcamserver.
+Usage example:
+  python -i -m azcam_mont4k.server -- -system mont4k
 """
 
 import os
@@ -26,32 +28,26 @@ from azcam_webtools.exptool.exptool import Exptool
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
 
-# ****************************************************************
-# parse command line arguments
-# ****************************************************************
-try:
-    i = sys.argv.index("-system")
-    option = sys.argv[i + 1]
-except ValueError:
-    option = "menu"
-try:
-    i = sys.argv.index("-datafolder")
-    datafolder = sys.argv[i + 1]
-except ValueError:
-    datafolder = None
-try:
-    i = sys.argv.index("-lab")
-    lab = 1
-except ValueError:
-    lab = 0
-
 
 def setup():
-    global option, datafolder, lab
+    # command line args
+    try:
+        i = sys.argv.index("-system")
+        option = sys.argv[i + 1]
+    except ValueError:
+        option = "menu"
+    try:
+        i = sys.argv.index("-datafolder")
+        datafolder = sys.argv[i + 1]
+    except ValueError:
+        datafolder = None
+    try:
+        i = sys.argv.index("-lab")
+        lab = 1
+    except ValueError:
+        lab = 0
 
-    # ****************************************************************
     # configuration menu
-    # ****************************************************************
     menu_options = {
         "mont4k standard mode": "mont4k",
         "mont4k for RTS2": "RTS2",
@@ -60,9 +56,7 @@ def setup():
     if option == "menu":
         option = azcam.utils.show_menu(menu_options)
 
-    # ****************************************************************
     # define folders for system
-    # ****************************************************************
     azcam.db.systemname = "mont4k"
 
     azcam.db.systemfolder = os.path.dirname(__file__)
@@ -83,16 +77,12 @@ def setup():
         f"parameters_server_{azcam.db.systemname}.ini",
     )
 
-    # ****************************************************************
-    # enable logging
-    # ****************************************************************
+    # logging
     logfile = os.path.join(azcam.db.datafolder, "logs", "server.log")
     azcam.db.logger.start_logging(logfile=logfile)
     azcam.log(f"Configuring for {option}")
 
-    # ****************************************************************
-    # configure system options
-    # ****************************************************************
+    # system options
     CSS = 0
     RTS2 = 0
     NORMAL = 0
@@ -136,9 +126,7 @@ def setup():
         azcam.AzcamError("invalid menu item")
     parfile = parfile
 
-    # ****************************************************************
     # controller
-    # ****************************************************************
     controller = ControllerArc()
     controller.timing_board = "arc22"
     controller.clock_boards = ["gen3"]
@@ -162,16 +150,12 @@ def setup():
     else:
         controller.camserver.set_server("localhost", 2405)
 
-    # ****************************************************************
     # temperature controller
-    # ****************************************************************
     tempcon = TempConArc()
     tempcon.control_temperature = -135.0
     tempcon.set_calibrations([0, 0, 3])
 
-    # ****************************************************************
     # exposure
-    # ****************************************************************
     exposure = ExposureArc()
     remote_imageserver_port = 6543
     sendimage = SendImage()
@@ -204,9 +188,7 @@ def setup():
     if lab:
         exposure.send_image = 0
 
-    # ****************************************************************
     # detector
-    # ****************************************************************
     detector_mont4k = {
         "name": "mont4k",
         "description": "4096x4096 CCD",
@@ -222,44 +204,30 @@ def setup():
     exposure.image.focalplane.wcs.scale1 = [sc, sc]
     exposure.image.focalplane.wcs.scale2 = [sc, sc]
 
-    # ****************************************************************
     # instrument
-    # ****************************************************************
     instrument = Mont4kInstrument()
     instrument.enabled = 1
 
-    # ****************************************************************
     # telescope
-    # ****************************************************************
     telescope = Big61TCSng()
 
-    # ****************************************************************
     # system header template
-    # ****************************************************************
     system = System("mont4k", template)
     system.set_keyword("DEWAR", "Mont4kDewar", "Dewar name")
 
-    # ****************************************************************
     # focus
-    # ****************************************************************
     focus = Focus()
     focus.focus_component = "telescope"
     focus.focus_type = "absolute"
 
-    # ****************************************************************
     # Queue
-    # ****************************************************************
     queue = Queue()
     queue.focus_component = "telescope"
 
-    # ****************************************************************
     # display
-    # ****************************************************************
     display = Ds9Display()
 
-    # ****************************************************************
     # system-specific
-    # ****************************************************************
     start_azcamtool = 1
     if CSS:
         from azcam_mont4k.css import CSS
@@ -276,21 +244,17 @@ def setup():
     else:
         proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
 
-    # ****************************************************************
-    # read par file
-    # ****************************************************************
+    # par file
     azcam.db.parameters.read_parfile(parfile)
     azcam.db.parameters.update_pars("azcamserver")
 
-    # overwrite come pars
+    # overwrite some pars
     if CSS:
         instrument.enabled = 0
         telescope.enabled = 0
         exposure.flush_array = 0
 
-    # ****************************************************************
     # define and start command server
-    # ****************************************************************
     cmdserver = CommandServer()
     cmdserver.port = cmdport
     azcam.log(f"Starting cmdserver - listening on port {cmdserver.port}")
@@ -302,9 +266,7 @@ def setup():
     azcam.db.monitor.proc_path = proc_path
     azcam.db.monitor.register()  # register azcammonitor with command port
 
-    # ****************************************************************
     # web server
-    # ****************************************************************
     webserver = WebServer()
     webserver.port = 2413
     webserver.index = os.path.join(azcam.db.systemfolder, "index_mont4k.html")
@@ -312,28 +274,17 @@ def setup():
     webstatus = Status()
     webstatus.initialize()
 
-    # ****************************************************************
     # controller server
-    # ****************************************************************
     import azcam_mont4k.restart_cameraserver
 
-    # ****************************************************************
     # GUIs
-    # ****************************************************************
     if start_azcamtool:
         import azcam_mont4k.start_azcamtool
 
-    # try to change window title
-    try:
-        ctypes.windll.kernel32.SetConsoleTitleW("azcamserver")
-    except Exception:
-        pass
-
-    # ****************************************************************
     # finish
-    # ****************************************************************
     azcam.log("Configuration complete")
 
 
+# start
 setup()
-from azcam.cli import *
+from azcam.cli import *  # bring CLI commands to namespace

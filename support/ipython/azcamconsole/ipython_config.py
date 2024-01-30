@@ -36,7 +36,7 @@
 # c.InteractiveShellApp.exec_lines = []
 
 ## A list of dotted module names of IPython extensions to load.
-c.InteractiveShellApp.extensions = ["rich"]
+# c.InteractiveShellApp.extensions = ["rich"]
 
 ## dotted module name of an IPython extension to load.
 # c.InteractiveShellApp.extra_extension = ''
@@ -192,7 +192,7 @@ c.InteractiveShell.autocall = 2
 # c.InteractiveShell.color_info = True
 
 ## Set the color scheme (NoColor, Neutral, Linux, or LightBG).
-# c.InteractiveShell.colors = 'Neutral'
+# c.InteractiveShell.colors = "Neutral"
 c.InteractiveShell.colors = "NoColor"
 
 ##
