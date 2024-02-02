@@ -268,11 +268,13 @@ def setup():
 
     # web server
     webserver = WebServer()
-    webserver.port = 2413
+    webserver.port = cmdport + 1
     webserver.index = os.path.join(azcam.db.systemfolder, "index_mont4k.html")
     webserver.start()
     webstatus = Status()
     webstatus.initialize()
+    webexptool = Exptool()
+    webexptool.initialize()
 
     # controller server
     import azcam_mont4k.restart_cameraserver
