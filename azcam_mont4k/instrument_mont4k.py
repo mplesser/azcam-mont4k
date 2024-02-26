@@ -7,6 +7,7 @@ import time
 import threading
 
 import azcam
+from azcam import exceptions
 from azcam_server.tools.instrument import Instrument
 
 
@@ -36,7 +37,7 @@ class Mont4kInstrument(Instrument):
         """
 
         if not self.enabled:
-            azcam.AzcamWarning(f"{self.description} is not enabled")
+            exceptions.warning(f"{self.description} is not enabled")
 
         if not self.initialized:
             self.initialize()
@@ -52,7 +53,7 @@ class Mont4kInstrument(Instrument):
                 time.sleep(0.10)  # !
                 self.iserver.close()
             else:
-                raise azcam.AzcamError("could not open Mont4k instrument")
+                raise exceptions.AzcamError("could not open Mont4k instrument")
 
             # check for error, valid replies starts with 'OK: ' and errors with '?: '
             if reply.startswith("OK: "):
@@ -60,7 +61,7 @@ class Mont4kInstrument(Instrument):
                 reply = reply.rstrip()
                 return reply
             else:
-                raise azcam.AzcamError(reply)
+                raise exceptions.AzcamError(reply)
 
         return
 
@@ -84,7 +85,7 @@ class Mont4kInstrument(Instrument):
         if keyword == "FILTER":
             reply = self.get_filter(0)
         else:
-            raise azcam.AzcamError("keyword not defined")
+            raise exceptions.AzcamError("keyword not defined")
 
         # store value in Header
         self.set_keyword(keyword, reply)
@@ -165,7 +166,7 @@ class Mont4kInstrument(Instrument):
                 time.sleep(0.1)  # other
                 continue
 
-        raise azcam.AzcamError("filter wheel BUSY timeout")
+        raise exceptions.AzcamError("filter wheel BUSY timeout")
 
     def _filter_busy(self):
         """
@@ -184,7 +185,7 @@ class Mont4kInstrument(Instrument):
 
             time.sleep(0.1)
 
-        raise azcam.AzcamError("filter wheel BUSY timeout")
+        raise exceptions.AzcamError("filter wheel BUSY timeout")
 
     def filter_busy(self):
         """
@@ -270,7 +271,9 @@ class InstrumentServerInterface(object):
         """
 
         try:
-            self.socket.send(str.encode(Command + "\r\n"))  # send command with terminator
+            self.socket.send(
+                str.encode(Command + "\r\n")
+            )  # send command with terminator
         except Exception:
             return [self.ERROR, "could not send command to instrument"]
         return [self.OK]

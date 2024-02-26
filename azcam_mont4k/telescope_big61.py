@@ -4,6 +4,7 @@ import socket
 import time
 
 import azcam
+from azcam import exceptions
 from azcam_server.tools.telescope import Telescope
 
 
@@ -28,7 +29,7 @@ class Big61TCSng(Telescope):
             return
 
         if not self.enabled:
-            azcam.AzcamWarning(f"{self.description} is not enabled")
+            exceptions.warning(f"{self.description} is not enabled")
             return
 
         # add keywords
@@ -44,7 +45,7 @@ class Big61TCSng(Telescope):
         """
 
         if not self.enabled:
-            azcam.AzcamWarning(f"{self.description} is not enabled")
+            exceptions.warning(f"{self.description} is not enabled")
 
         if not self.initialized:
             self.initialize()
@@ -202,7 +203,7 @@ class Big61TCSng(Telescope):
             try:
                 motion = int(reply[0])
             except:
-                raise azcam.AzcamError("bad MOTION status keyword: %s" % reply[1])
+                raise exceptions.AzcamError("bad MOTION status keyword: %s" % reply[1])
 
             if not motion:
                 return
@@ -213,7 +214,7 @@ class Big61TCSng(Telescope):
         command = "CANCEL"
         reply = self.Tserver.command(command)
 
-        raise azcam.AzcamError("stopped motion flag not detected")
+        raise exceptions.AzcamError("stopped motion flag not detected")
 
 
 class TelescopeNG:

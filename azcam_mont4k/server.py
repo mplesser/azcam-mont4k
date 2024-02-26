@@ -8,10 +8,12 @@ import os
 import sys
 
 import azcam
+from azcam import exceptions
 from azcam.header import System
 import azcam_server.server
 
 import azcam_server.shortcuts
+from azcam.logger import check_for_remote_logger
 from azcam_server.cmdserver import CommandServer
 from azcam_server.tools.arc.controller_arc import ControllerArc
 from azcam_server.tools.arc.exposure_arc import ExposureArc
@@ -79,7 +81,11 @@ def setup():
 
     # logging
     logfile = os.path.join(azcam.db.datafolder, "logs", "server.log")
-    azcam.db.logger.start_logging(logfile=logfile)
+    if check_for_remote_logger():
+        azcam.db.logger.start_logging(logtype="23", logfile=logfile)
+    else:
+        azcam.db.logger.start_logging(logtype="13", logfile=logfile)
+
     azcam.log(f"Configuring for {option}")
 
     # system options
@@ -123,7 +129,7 @@ def setup():
         azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
-        azcam.AzcamError("invalid menu item")
+        exceptions.AzcamError("invalid menu item")
     parfile = parfile
 
     # controller
@@ -271,9 +277,9 @@ def setup():
     webserver.port = cmdport + 1
     webserver.index = os.path.join(azcam.db.systemfolder, "index_mont4k.html")
     webserver.start()
-    webstatus = Status()
+    webstatus = Status(webserver)
     webstatus.initialize()
-    webexptool = Exptool()
+    webexptool = Exptool(webserver)
     webexptool.initialize()
 
     # controller server
