@@ -4,8 +4,9 @@ import socket
 import time
 
 import azcam
+import azcam.utils
 from azcam import exceptions
-from azcam_server.tools.telescope import Telescope
+from azcam.server.tools.telescope import Telescope
 
 
 class Big61TCSng(Telescope):
