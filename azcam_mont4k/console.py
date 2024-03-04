@@ -15,7 +15,7 @@ import azcam.console
 import azcam.console.shortcuts
 from azcam.server.tools.ds9display import Ds9Display
 from azcam.console.tools.focus import FocusConsole
-from azcam_observe.observe_cli.observe_cli import ObserveCli
+from azcam.observe.observe_cli.observe_cli import ObserveCli
 
 
 def setup():
