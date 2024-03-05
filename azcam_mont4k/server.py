@@ -9,7 +9,7 @@ import sys
 
 import azcam
 import azcam.utils
-from azcam import exceptions
+import azcam.exceptions
 from azcam.header import System
 import azcam.server.server
 
@@ -122,7 +122,7 @@ def setup():
         azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
-        exceptions.AzcamError("invalid menu item")
+        azcam.exceptions.AzCamError("invalid menu item")
     parfile = parfile
 
     # controller
