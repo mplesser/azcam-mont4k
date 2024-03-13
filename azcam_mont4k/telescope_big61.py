@@ -204,7 +204,7 @@ class Big61TCSng(Telescope):
             try:
                 motion = int(reply[0])
             except:
-                raise azcam.exceptions.AzCamError(
+                raise azcam.exceptions.AzcamError(
                     "bad MOTION status keyword: %s" % reply[1]
                 )
 
@@ -217,7 +217,7 @@ class Big61TCSng(Telescope):
         command = "CANCEL"
         reply = self.Tserver.command(command)
 
-        raise azcam.exceptions.AzCamError("stopped motion flag not detected")
+        raise azcam.exceptions.AzcamError("stopped motion flag not detected")
 
 
 class TelescopeNG:

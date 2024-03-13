@@ -122,7 +122,7 @@ def setup():
         azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
-        azcam.exceptions.AzCamError("invalid menu item")
+        azcam.exceptions.AzcamError("invalid menu item")
     parfile = parfile
 
     # controller

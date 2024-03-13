@@ -53,7 +53,7 @@ class Mont4kInstrument(Instrument):
                 time.sleep(0.10)  # !
                 self.iserver.close()
             else:
-                raise azcam.exceptions.AzCamError("could not open Mont4k instrument")
+                raise azcam.exceptions.AzcamError("could not open Mont4k instrument")
 
             # check for error, valid replies starts with 'OK: ' and errors with '?: '
             if reply.startswith("OK: "):
@@ -61,7 +61,7 @@ class Mont4kInstrument(Instrument):
                 reply = reply.rstrip()
                 return reply
             else:
-                raise azcam.exceptions.AzCamError(reply)
+                raise azcam.exceptions.AzcamError(reply)
 
         return
 
@@ -85,7 +85,7 @@ class Mont4kInstrument(Instrument):
         if keyword == "FILTER":
             reply = self.get_filter(0)
         else:
-            raise azcam.exceptions.AzCamError("keyword not defined")
+            raise azcam.exceptions.AzcamError("keyword not defined")
 
         # store value in Header
         self.set_keyword(keyword, reply)
@@ -166,7 +166,7 @@ class Mont4kInstrument(Instrument):
                 time.sleep(0.1)  # other
                 continue
 
-        raise azcam.exceptions.AzCamError("filter wheel BUSY timeout")
+        raise azcam.exceptions.AzcamError("filter wheel BUSY timeout")
 
     def _filter_busy(self):
         """
@@ -185,7 +185,7 @@ class Mont4kInstrument(Instrument):
 
             time.sleep(0.1)
 
-        raise azcam.exceptions.AzCamError("filter wheel BUSY timeout")
+        raise azcam.exceptions.AzcamError("filter wheel BUSY timeout")
 
     def filter_busy(self):
         """
