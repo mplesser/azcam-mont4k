@@ -94,7 +94,6 @@ def setup():
         )
         NORMAL = 1
         cmdport = 2402
-        azcam.db.servermode = "mont4k"
         azcam.db.process_name = "mont4k-normal"
         default_tool = None
     elif "RTS2" in option:
@@ -106,7 +105,6 @@ def setup():
         )
         RTS2 = 1
         cmdport = 2412
-        azcam.db.servermode = "RTS2"
         azcam.db.process_name = "mont4k-rts2"
         default_tool = "rts2"
     elif "CSS" in option:
@@ -118,7 +116,6 @@ def setup():
         )
         CSS = 1
         cmdport = 2422
-        azcam.db.servermode = "CSS"
         azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
