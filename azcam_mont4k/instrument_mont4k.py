@@ -103,11 +103,11 @@ class Mont4kInstrument(Instrument):
 
         try:
             reply = self.command("SHOWFILTERS")
-        except azcam.AzcamError:
+        except azcam.exceptions.AzcamError:
             time.sleep(3)
             try:
                 reply = self.command("SHOWFILTERS")
-            except azcam.AzcamError:
+            except azcam.exceptions.AzcamError:
                 azcam.log("ERROR reading loaded filters in get_filters")
                 raise
 

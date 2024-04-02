@@ -20,7 +20,6 @@ from azcam.server.tools.arc.controller_arc import ControllerArc
 from azcam.server.tools.arc.exposure_arc import ExposureArc
 from azcam.server.tools.arc.tempcon_arc import TempConArc
 from azcam.server.tools.ds9display import Ds9Display
-from azcam.server.tools.sendimage import SendImage
 from azcam.server.tools.focus import Focus
 from azcam.server.tools.queue import Queue
 
@@ -157,27 +156,26 @@ def setup():
     # exposure
     exposure = ExposureArc()
     remote_imageserver_port = 6543
-    sendimage = SendImage()
     exposure.send_image = 1
     if CSS:
         remote_imageserver_host = "10.30.7.82"
         imagefolder = "/home/css"
         azcam.db.servermode = "mont4k-css"
-        sendimage.set_remote_imageserver(
+        exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "azcam"
         )
     elif RTS2:
         remote_imageserver_host = "10.30.1.24"
         imagefolder = "/home/rts2obs"
         azcam.db.servermode = "mont4k-rts2"
-        sendimage.set_remote_imageserver(
+        exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "dataserver"
         )
     else:
         remote_imageserver_host = "10.30.1.1"
         imagefolder = "/home/bigobs"
         azcam.db.servermode = "mont4k-normal"
-        sendimage.set_remote_imageserver(
+        exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "dataserver"
         )
     exposure.filetype = exposure.filetypes["MEF"]
@@ -245,7 +243,7 @@ def setup():
 
     # par file
     azcam.db.parameters.read_parfile(parfile)
-    azcam.db.parameters.update_pars("azcamserver")
+    azcam.db.parameters.update_pars()
 
     # overwrite some pars
     if CSS:
