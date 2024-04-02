@@ -68,7 +68,7 @@ def setup():
     parfile = os.path.join(
         azcam.db.datafolder,
         "parameters",
-        f"parameters_server_{azcam.db.systemname}.ini",
+        f"parameters_{azcam.db.systemname}.ini",
     )
 
     # logging
@@ -89,7 +89,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_master.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_server_mont4k.ini"
+            azcam.db.datafolder, "parameters", "parameters_mont4k.ini"
         )
         NORMAL = 1
         cmdport = 2402
@@ -100,7 +100,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_rts2.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini"
+            azcam.db.datafolder, "parameters", "parameters_mont4k_rts2.ini"
         )
         RTS2 = 1
         cmdport = 2412
@@ -111,7 +111,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_css.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini"
+            azcam.db.datafolder, "parameters", "parameters_mont4k_css.ini"
         )
         CSS = 1
         cmdport = 2422
