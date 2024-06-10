@@ -23,7 +23,7 @@ from azcam.tools.ds9display import Ds9Display
 from azcam.tools.focus import Focus
 from azcam.tools.queue import Queue
 
-from azcam.webtools.webserver.fastapi_server import WebServer
+from azcam.webtools.webserver import WebServer
 from azcam.webtools.status.status import Status
 from azcam.webtools.exptool.exptool import Exptool
 
@@ -94,7 +94,7 @@ def setup():
         NORMAL = 1
         cmdport = 2402
         azcam.db.process_name = "mont4k-normal"
-        default_tool = None
+        default_tool = "api"
     elif "RTS2" in option:
         template = os.path.join(
             azcam.db.datafolder, "templates", "fits_template_mont4k_rts2.txt"

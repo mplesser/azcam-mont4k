@@ -26,17 +26,17 @@ class Big61TCSng(Telescope):
         Initializes the telescope interface.
         """
 
-        if self.initialized:
+        if self.is_initialized:
             return
 
-        if not self.enabled:
+        if not self.is_enabled:
             azcam.exceptions.warning(f"{self.description} is not enabled")
             return
 
         # add keywords
         self.define_keywords()
 
-        self.initialized = 1
+        self.is_initialized = 1
 
         return
 
@@ -45,10 +45,10 @@ class Big61TCSng(Telescope):
         Verify telescope is enabled and initialized.
         """
 
-        if not self.enabled:
+        if not self.is_enabled:
             azcam.exceptions.warning(f"{self.description} is not enabled")
 
-        if not self.initialized:
+        if not self.is_initialized:
             self.initialize()
 
         return

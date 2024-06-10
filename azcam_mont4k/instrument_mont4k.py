@@ -36,10 +36,10 @@ class Mont4kInstrument(Instrument):
         Command interface for Mont4k instrument.
         """
 
-        if not self.enabled:
+        if not self.is_enabled:
             azcam.exceptions.warning(f"{self.description} is not enabled")
 
-        if not self.initialized:
+        if not self.is_initialized:
             self.initialize()
 
         with self.lock:
