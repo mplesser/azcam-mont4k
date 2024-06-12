@@ -200,7 +200,7 @@ def setup():
 
     # instrument
     instrument = Mont4kInstrument()
-    instrument.enabled = 1
+    instrument.is_enabled = 1
 
     # telescope
     telescope = Big61TCSng()
@@ -244,8 +244,8 @@ def setup():
 
     # overwrite some pars
     if CSS:
-        instrument.enabled = 0
-        telescope.enabled = 0
+        instrument.is_enabled = 0
+        telescope.is_enabled = 0
         exposure.flush_array = 0
 
     # define and start command server
