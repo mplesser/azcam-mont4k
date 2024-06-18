@@ -21,7 +21,6 @@ from azcam.tools.arc.exposure_arc import ExposureArc
 from azcam.tools.arc.tempcon_arc import TempConArc
 from azcam.tools.ds9display import Ds9Display
 from azcam.tools.focus import Focus
-from azcam.tools.queue import Queue
 
 from azcam.webtools.webserver import WebServer
 from azcam.webtools.status.status import Status
@@ -213,10 +212,6 @@ def setup():
     focus = Focus()
     focus.focus_component = "telescope"
     focus.focus_type = "absolute"
-
-    # Queue
-    queue = Queue()
-    queue.focus_component = "telescope"
 
     # display
     display = Ds9Display()
