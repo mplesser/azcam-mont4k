@@ -1,7 +1,7 @@
 [project]
 name = "azcam-mont4k"
 version = "24.0"
-description = "Azcam extension for Kuiper telescope Mont4k facility cameras"
+description = "Azcam environment for Kuiper telescope Mont4k facility cameras"
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.10"

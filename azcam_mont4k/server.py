@@ -213,6 +213,7 @@ def setup():
     focus = Focus()
     focus.focus_component = "telescope"
     focus.focus_type = "absolute"
+    focus.initialize()
 
     # Queue
     queue = Queue()
@@ -220,6 +221,7 @@ def setup():
 
     # display
     display = Ds9Display()
+    display.initialize()
 
     # system-specific
     start_azcamtool = 1
