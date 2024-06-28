@@ -12,7 +12,6 @@ import azcam.utils
 import azcam.exceptions
 from azcam.header import System
 import azcam.server
-
 import azcam.shortcuts
 from azcam.logger import check_for_remote_logger
 from azcam.cmdserver import CommandServer
@@ -21,7 +20,6 @@ from azcam.tools.arc.exposure_arc import ExposureArc
 from azcam.tools.arc.tempcon_arc import TempConArc
 from azcam.tools.ds9display import Ds9Display
 from azcam.tools.focus import Focus
-
 from azcam.webtools.webserver import WebServer
 from azcam.webtools.status.status import Status
 from azcam.webtools.exptool.exptool import Exptool
@@ -88,7 +86,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_master.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_mont4k.ini"
+            azcam.db.datafolder, "parameters", "parameters_server_mont4k.ini"
         )
         NORMAL = 1
         cmdport = 2402
@@ -99,7 +97,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_rts2.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_mont4k_rts2.ini"
+            azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini"
         )
         RTS2 = 1
         cmdport = 2412
@@ -110,7 +108,7 @@ def setup():
             azcam.db.datafolder, "templates", "fits_template_mont4k_css.txt"
         )
         parfile = os.path.join(
-            azcam.db.datafolder, "parameters", "parameters_mont4k_css.ini"
+            azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini"
         )
         CSS = 1
         cmdport = 2422
@@ -187,7 +185,7 @@ def setup():
         "description": "4096x4096 CCD",
         "ref_pixel": [2048, 2048],
         "format": [4096, 20, 0, 20, 4096, 0, 0, 0, 0],
-        "focalplane": [1, 1, 2, 1, "01"],
+        "focalplane": [1, 1, 2, 1, [0, 1]],
         "roi": [1, 4096, 1, 4096, 3, 3],
         "ext_position": [[1, 1], [2, 1]],
         "jpg_order": [1, 2],
@@ -249,13 +247,14 @@ def setup():
     cmdserver = CommandServer()
     cmdserver.port = cmdport
     azcam.log(f"Starting cmdserver - listening on port {cmdserver.port}")
-    # cmdserver.welcome_message = "Welcome - azcam-itl server"
-    cmdserver.start()
     if default_tool is not None:
         azcam.db.default_tool = default_tool
+    azcam.db.tools["api"].initialize_api()
+    cmdserver.start()
 
+    # azcammonitor
     azcam.db.monitor.proc_path = proc_path
-    azcam.db.monitor.register()  # register azcammonitor with command port
+    azcam.db.monitor.register()
 
     # web server
     webserver = WebServer()
