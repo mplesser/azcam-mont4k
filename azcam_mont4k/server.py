@@ -90,7 +90,11 @@ def setup():
         )
         NORMAL = 1
         cmdport = 2402
-        azcam.db.process_name = "mont4k-normal"
+        azcam.db.servermode = "mont4k-normal"
+        proc_path = os.path.join(
+            "/azcam", "azcam-mont4k", "support", "start_server_mont4k.bat"
+        )
+
         default_tool = "api"
     elif "RTS2" in option:
         template = os.path.join(
@@ -99,9 +103,12 @@ def setup():
         parfile = os.path.join(
             azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini"
         )
+        azcam.db.servermode = "mont4k-rts2"
+        proc_path = os.path.join(
+            "/azcam", "azcam-mont4k", "support", "start_server_rts2.bat"
+        )
         RTS2 = 1
         cmdport = 2412
-        azcam.db.process_name = "mont4k-rts2"
         default_tool = "rts2"
     elif "CSS" in option:
         template = os.path.join(
@@ -110,9 +117,12 @@ def setup():
         parfile = os.path.join(
             azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini"
         )
+        azcam.db.servermode = "mont4k-css"
+        proc_path = os.path.join(
+            "/azcam", "azcam-mont4k", "support", "start_server_css.bat"
+        )
         CSS = 1
         cmdport = 2422
-        azcam.db.process_name = "mont4k-css"
         default_tool = "css"
     else:
         azcam.exceptions.AzcamError("invalid menu item")
@@ -154,21 +164,18 @@ def setup():
     if CSS:
         remote_imageserver_host = "10.30.7.82"
         imagefolder = "/home/css"
-        azcam.db.servermode = "mont4k-css"
         exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "azcam"
         )
     elif RTS2:
         remote_imageserver_host = "10.30.1.24"
         imagefolder = "/home/rts2obs"
-        azcam.db.servermode = "mont4k-rts2"
         exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "dataserver"
         )
     else:
         remote_imageserver_host = "10.30.1.1"
         imagefolder = "/home/bigobs"
-        azcam.db.servermode = "mont4k-normal"
         exposure.sendimage.set_remote_imageserver(
             remote_imageserver_host, remote_imageserver_port, "dataserver"
         )
@@ -222,16 +229,12 @@ def setup():
         from azcam_mont4k.css import CSS
 
         css = CSS()
-        proc_path = "/data/mont4k/bin/start_server_css.bat"
     elif RTS2:
         from azcam_mont4k.rts2 import RTS2
 
         rts2 = RTS2()
         rts2.focus = focus  # call as rts2.focus.xxx not focus.xxx
         start_azcamtool = 0
-        proc_path = "/data/mont4k/bin/start_server_rts2.bat"
-    else:
-        proc_path = "/data/mont4k/bin/start_server_mont4k.bat"
 
     # par file
     azcam.db.parameters.read_parfile(parfile)
