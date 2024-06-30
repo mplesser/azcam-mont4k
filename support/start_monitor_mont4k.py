@@ -4,7 +4,7 @@ AzCamMonitor process start file
 
 import subprocess
 
-OPTIONS = "../support/parameters_monitor_mont4k.ini"
+OPTIONS = "./parameters_monitor_mont4k.ini"
 
 CMD = f"python -m azcam.monitor -- -configfile {OPTIONS}"
 # CMD = f"ipython -i -m azcam.monitor -- -configfile {OPTIONS}"
