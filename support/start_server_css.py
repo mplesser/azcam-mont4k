@@ -4,7 +4,8 @@ Python process start file
 
 import subprocess
 
-CMD = "ipython --profile azcamserver -i -m azcam_mont4k.server -- -system CSS"
+OPTIONS = "-system CSS"
+CMD = f"ipython --profile azcamserver -i -m azcam_mont4k.server -- {OPTIONS}"
 
 p = subprocess.Popen(
     CMD,

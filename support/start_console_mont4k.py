@@ -4,8 +4,8 @@ Python process start file
 
 import subprocess
 
-OPTIONS = "-system mont4k"
-CMD = f"ipython --profile azcamserver -i -m azcam_mont4k.server -- {OPTIONS}"
+OPTIONS = ""
+CMD = f"ipython --profile azcamserver -i -m azcam_mont4k.console -- {OPTIONS}"
 
 p = subprocess.Popen(
     CMD,
