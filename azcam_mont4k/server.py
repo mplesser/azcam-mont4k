@@ -92,7 +92,7 @@ def setup():
         cmdport = 2402
         azcam.db.servermode = "mont4k-normal"
         proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_mont4k.bat"
+            "/azcam", "azcam-mont4k", "support", "start_server_mont4k.py"
         )
 
         default_tool = "api"
@@ -105,7 +105,7 @@ def setup():
         )
         azcam.db.servermode = "mont4k-rts2"
         proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_rts2.bat"
+            "/azcam", "azcam-mont4k", "support", "start_server_rts2.py"
         )
         RTS2 = 1
         cmdport = 2412
@@ -119,7 +119,7 @@ def setup():
         )
         azcam.db.servermode = "mont4k-css"
         proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_css.bat"
+            "/azcam", "azcam-mont4k", "support", "start_server_css.py"
         )
         CSS = 1
         cmdport = 2422
@@ -224,7 +224,7 @@ def setup():
     display.initialize()
 
     # system-specific
-    start_azcamtool = 1
+    start_azcamtool = 0
     if CSS:
         from azcam_mont4k.css import CSS
 

@@ -1,7 +1,9 @@
 @echo off
 
-rem start/min "azcammonitor" python -m azcam.monitor -- -configfile "../parameters_monitor_mont4k.ini"
+SET CFILE="../support/parameters_monitor_mont4k.ini"
 
-rem start "azcammonitor" ipython -m azcam.monitor -i -- -configfile "../parameters/parameters_monitor_mont4k.ini"
+rem start/min "azcammonitor" python -m azcam.monitor -- -configfile %CFILE%
 
-ipython -m azcam.monitor -i -- -configfile "../parameters/parameters_monitor_mont4k.ini"
+rem start "azcammonitor" ipython -m azcam.monitor -i -- -configfile %CFILE%
+
+ipython -m azcam.monitor -i -- -configfile %CFILE%
