@@ -29,7 +29,8 @@ from azcam_mont4k.telescope_big61 import Big61TCSng
 
 
 def setup():
-    # command line args
+
+    # parse command line args
     try:
         i = sys.argv.index("-system")
         option = sys.argv[i + 1]
@@ -91,9 +92,6 @@ def setup():
         NORMAL = 1
         cmdport = 2402
         azcam.db.servermode = "mont4k-normal"
-        proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_mont4k.py"
-        )
 
         default_tool = "api"
     elif "RTS2" in option:
@@ -104,9 +102,6 @@ def setup():
             azcam.db.datafolder, "parameters", "parameters_server_mont4k_rts2.ini"
         )
         azcam.db.servermode = "mont4k-rts2"
-        proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_rts2.py"
-        )
         RTS2 = 1
         cmdport = 2412
         default_tool = "rts2"
@@ -118,9 +113,6 @@ def setup():
             azcam.db.datafolder, "parameters", "parameters_server_mont4k_css.ini"
         )
         azcam.db.servermode = "mont4k-css"
-        proc_path = os.path.join(
-            "/azcam", "azcam-mont4k", "support", "start_server_css.py"
-        )
         CSS = 1
         cmdport = 2422
         default_tool = "css"
@@ -255,10 +247,6 @@ def setup():
     azcam.db.tools["api"].initialize_api()
     cmdserver.start()
 
-    # azcammonitor
-    azcam.db.monitor.proc_path = proc_path
-    azcam.db.monitor.register()
-
     # web server
     webserver = WebServer()
     webserver.port = cmdport + 1
@@ -268,6 +256,9 @@ def setup():
     webstatus.initialize()
     webexptool = Exptool(webserver)
     webexptool.initialize()
+
+    # azcammonitor
+    azcam.db.monitor.register()
 
     # controller server
     import azcam_mont4k.restart_cameraserver
