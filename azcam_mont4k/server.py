@@ -20,9 +20,7 @@ from azcam.tools.arc.exposure_arc import ExposureArc
 from azcam.tools.arc.tempcon_arc import TempConArc
 from azcam.tools.ds9display import Ds9Display
 from azcam.tools.focus import Focus
-from azcam.webtools.webserver import WebServer
-from azcam.webtools.status.status import Status
-from azcam.webtools.exptool.exptool import Exptool
+from azcam.web.webserver_dash import WebServer
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
@@ -250,12 +248,7 @@ def setup():
     # web server
     webserver = WebServer()
     webserver.port = cmdport + 1
-    webserver.index = os.path.join(azcam.db.systemfolder, "index_mont4k.html")
     webserver.start()
-    webstatus = Status(webserver)
-    webstatus.initialize()
-    webexptool = Exptool(webserver)
-    webexptool.initialize()
 
     # azcammonitor
     azcam.db.monitor.register()
