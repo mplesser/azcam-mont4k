@@ -39,11 +39,6 @@ def setup():
         datafolder = sys.argv[i + 1]
     except ValueError:
         datafolder = None
-    try:
-        i = sys.argv.index("-lab")
-        lab = 1
-    except ValueError:
-        lab = 0
 
     # configuration menu
     menu_options = {
@@ -136,11 +131,7 @@ def setup():
     )
     controller.video_gain = 2
     controller.video_speed = 2
-    if lab:
-        # controller.camserver.set_server("conserver5", 2405)
-        controller.camserver.set_server("localhost", 2405)
-    else:
-        controller.camserver.set_server("localhost", 2405)
+    controller.camserver.set_server("localhost", 2405)
 
     # temperature controller
     tempcon = TempConArc()
@@ -173,8 +164,6 @@ def setup():
     exposure.image.filetype = exposure.filetypes["MEF"]
     exposure.display_image = 0
     exposure.folder = imagefolder
-    if lab:
-        exposure.send_image = 0
 
     # detector
     detector_mont4k = {
