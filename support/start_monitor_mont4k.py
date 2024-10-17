@@ -7,7 +7,7 @@ import subprocess
 OPTIONS = "parameters_monitor_mont4k.ini"
 
 # CMD = f"python -m azcam.monitor -- -configfile {OPTIONS}"
-CMD = f"ipython -i -m azcam.monitor -- -configfile {OPTIONS}"
+CMD = f"azcammonitor -configfile {OPTIONS}"
 
 p = subprocess.Popen(
     CMD,

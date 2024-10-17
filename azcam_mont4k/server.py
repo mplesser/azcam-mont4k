@@ -180,6 +180,8 @@ def setup():
     sc = 0.000_039_722
     exposure.image.focalplane.wcs.scale1 = [sc, sc]
     exposure.image.focalplane.wcs.scale2 = [sc, sc]
+    exposure.image.focalplane.gains = [3.19, 3.08]
+    exposure.image.focalplane.rdnoises = [6.3, 6.7]
 
     # instrument
     instrument = Mont4kInstrument()
@@ -203,7 +205,7 @@ def setup():
     display.initialize()
 
     # system-specific
-    start_azcamtool = 0
+    start_azcamtool = 1
     if CSS:
         from azcam_mont4k.css import CSS
 

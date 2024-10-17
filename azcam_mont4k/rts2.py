@@ -108,7 +108,7 @@ class RTS2(object):
         Return camera status(temperatures).
         """
 
-        reply = azcam.db.tempcon.get_temperatures()
+        reply = azcam.db.tools["tempcon"].get_temperatures()
 
         camtemp = "%.3f" % reply[0]
         dewtemp = "%.3f" % reply[1]
