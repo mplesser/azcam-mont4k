@@ -2,7 +2,7 @@
 Setup method for mont4k azcamconsole.
 
 Usage example:
-  python -i -m azcam_mont4k.console
+  ipython -i -m azcam_mont4k.console --profile azcamconsole
 """
 
 import os
@@ -12,6 +12,7 @@ import threading
 import azcam
 import azcam.utils
 import azcam_console.console
+from azcam_console.tools import create_console_tools
 import azcam_console.shortcuts
 from azcam.tools.ds9display import Ds9Display
 from azcam_console.tools.focus import FocusConsole
@@ -49,8 +50,6 @@ def setup():
     dthread.start()  # thread just for speed
 
     # console tools
-    from azcam_console.tools import create_console_tools
-
     create_console_tools()
 
     # focus tool
@@ -62,8 +61,13 @@ def setup():
     observe = ObserveCli()
 
     # try to connect to azcamserver
+    ports = [2402, 2412, 2422, 2432, 2442]
+    connected = 0
     server = azcam.db.tools["server"]
-    connected = server.connect()
+    for port in ports:
+        connected = server.connect(port=port)
+        if connected:
+            break
     if connected:
         azcam.log("Connected to azcamserver")
     else:
@@ -76,4 +80,6 @@ def setup():
 
 # start
 setup()
-from azcam_console.cli import *  # bring CLI commands to namespace
+from azcam_console.cli import *
+
+del setup
