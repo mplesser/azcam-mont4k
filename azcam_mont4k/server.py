@@ -20,7 +20,7 @@ from azcam.tools.arc.exposure_arc import ExposureArc
 from azcam.tools.arc.tempcon_arc import TempConArc
 from azcam.tools.ds9display import Ds9Display
 from azcam.tools.focus import Focus
-from azcam.web.webserver_main import WebServer
+from azcam.web.fastapi_server import WebServer
 
 from azcam_mont4k.instrument_mont4k import Mont4kInstrument
 from azcam_mont4k.telescope_big61 import Big61TCSng
