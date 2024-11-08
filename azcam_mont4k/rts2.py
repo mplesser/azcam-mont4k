@@ -47,7 +47,12 @@ class RTS2(object):
         Set parameter.
         """
 
-        azcam.db.parameters.set_par(parameter, value)
+        if parameter == "remote_imageserver_host":
+            azcam.db.tools["exposure"].sendimage.remote_imageserver_host = value
+        elif parameter == "remote_imageserver_port":
+            azcam.db.tools["exposure"].sendimage.remote_imageserver_port = int(value)
+        else:
+            azcam.db.parameters.set_par(parameter, value)
 
         return
 
@@ -88,7 +93,9 @@ class RTS2(object):
         :param image_title: image title, usually surrounded by double quotes.
         """
 
-        reply = azcam.db.tools["exposure"].expose1(exposure_time, image_type, image_title)
+        reply = azcam.db.tools["exposure"].expose1(
+            exposure_time, image_type, image_title
+        )
 
         return reply
 
