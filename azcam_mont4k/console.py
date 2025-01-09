@@ -12,7 +12,7 @@ import threading
 import azcam
 import azcam.utils
 import azcam_console.console
-from azcam_console.tools import create_console_tools
+from azcam_console.tools.console_tools import create_console_tools
 import azcam_console.shortcuts
 from azcam.tools.ds9display import Ds9Display
 from azcam_console.tools.focus import FocusConsole
