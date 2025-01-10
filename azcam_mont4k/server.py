@@ -11,7 +11,7 @@ import azcam
 import azcam.utils
 import azcam.exceptions
 from azcam.header import System
-import azcam.server
+from azcam.server import setup_server
 import azcam.shortcuts
 from azcam.logger import check_for_remote_logger
 from azcam.cmdserver import CommandServer
@@ -39,6 +39,8 @@ def setup():
         datafolder = sys.argv[i + 1]
     except ValueError:
         datafolder = None
+
+    setup_server()
 
     # configuration menu
     menu_options = {
@@ -233,7 +235,7 @@ def setup():
     azcam.log(f"Starting cmdserver - listening on port {cmdserver.port}")
     if default_tool is not None:
         azcam.db.default_tool = default_tool
-    azcam.db.tools["api"].initialize_api()
+    azcam.db.api.initialize()
     cmdserver.start()
 
     # web server

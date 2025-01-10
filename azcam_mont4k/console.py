@@ -63,9 +63,8 @@ def setup():
     # try to connect to azcamserver
     ports = [2402, 2412, 2422, 2432, 2442]
     connected = 0
-    server = azcam.db.tools["server"]
     for port in ports:
-        connected = server.connect(port=port)
+        connected = azcam.db.server.connect(port=port)
         if connected:
             break
     if connected:
