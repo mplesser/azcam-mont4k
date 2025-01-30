@@ -1,13 +1,13 @@
 [project]
 name = "azcam-mont4k"
-version = "24.0"
+version = "25.0"
 description = "Azcam environment for Kuiper telescope Mont4k facility cameras"
 license = { file = "LICENSE" }
 readme = "README.md"
 requires-python = ">=3.10"
 keywords = ["ccd", "imaging", "astronomy", "sensors"]
 authors = [{ name = "Michael Lesser" }, { email = "mlesser@arizona.edu" }]
-dependencies = ["ipython", "rich", "azcam"]
+dependencies = ["ipython", "rich", "azcam", "azcam-console"]
 
 [project.urls]
 Documentation = "https://azcam.readthedocs.io/"
